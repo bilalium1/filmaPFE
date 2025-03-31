@@ -1,11 +1,13 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import 'dotenv/config'; // Add this line at the top
+import filmRoutes from "./routes/film.route.js";
 
 const app = express();
-
 // pour accepter JSON dans le DB 
 app.use(express.json())
+
+app.use("/api/films", filmRoutes);
 
 // Initializer le serveur dans le port 1111
 app.listen(1111, () => {

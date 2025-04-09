@@ -7,6 +7,6 @@ const Theater_pbSchema = mongoose.Schema({
     {timestamps : true}
 );
 
-const TheaterPlayback = mongoose("Theater_playback", Theater_pbSchema);
+const TheaterPlayback = mongoose.model("Theater_playback", Theater_pbSchema);
 
 export default TheaterPlayback;

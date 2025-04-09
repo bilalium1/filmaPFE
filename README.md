@@ -45,6 +45,6 @@ En utilisant JavaScript sur toute la stack, nous simplifions le développement e
     Performance : Comment optimiser le streaming pour minimiser le buffering ?
 
 
-Bilal lenmrabet
-Mehdi Terech
+**Bilal lemrabet**
+**Mehdi Terech**
 

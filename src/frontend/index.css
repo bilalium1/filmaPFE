@@ -1,15 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Oswald:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Doto:wght@100..900&display=swap');
+
 @import "tailwindcss";
 
-
+@theme {
+  --color-redz-500: oklch(0.66 0.2349 13.34);
+  --color-bluez-500: oklch(0.7 0.25 240);
+  --color-greenz-500: oklch(0.7 0.22 145);
+  --color-yellowz-500: oklch(0.85 0.24 90);
+  --color-purplez-500: oklch(0.7 0.23 290);
+  --color-pinkz-500: oklch(0.8 0.26 350);
+  --color-orangez-500: oklch(0.8 0.25 45);
+  --color-cyanz-500: oklch(0.75 0.22 200);
+  --color-tealz-500: oklch(0.72 0.21 180);
+  --color-limez-500: oklch(0.8 0.22 120);
+  --color-amberz-500: oklch(0.85 0.26 75);
+  --color-indigoz-500: oklch(0.7 0.23 260);
+  --color-violetz-500: oklch(0.75 0.24 270);
+  --color-fuchsiatz-500: oklch(0.78 0.26 320);
+  --color-rosez-500: oklch(0.8 0.25 10);
+  --color-skyz-500: oklch(0.75 0.22 220);
+  --color-emeraldz-500: oklch(0.7 0.22 160);
+  --color-slatez-500: oklch(0.6 0.1 250);
+  --color-stonez-500: oklch(0.55 0.09 80);
+  --color-grayz-500: oklch(0.5 0.08 240);
+  --color-zincz-500: oklch(0.5 0.07 260);
+  --color-neutralz-500: oklch(0.5 0.06 200);
+}
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  user-select: none;
+  font-family: 'Chakra Petch', sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #011627 ;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

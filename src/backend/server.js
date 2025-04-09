@@ -8,6 +8,12 @@ const app = express();
 app.use(express.json())
 
 app.use("/api/films", filmRoutes);
+//app.use("/api/users", userRoutes);
+//app.use("/api/favorites", favRoutes);
+//app.use("/api/history", histRoutes);
+//app.use("/api/reviews", revRoutes);
+//app.use("/api/comments", commRoutes);
+//app.use("/api/videos", vidRoutes);
 
 // Initializer le serveur dans le port 1111
 app.listen(1111, () => {

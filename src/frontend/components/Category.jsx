@@ -1,12 +1,8 @@
 import { useState } from 'react'
 import '../App.css'
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
 import Button from '@mui/material/Button';
 
-const Detail = () => {
+const Category = () => {
   const [movie, setMovie] = useState<Movie | undefined>(undefined);
   const [muted, setMuted] = useState(true);
   const similarContent = getPopularContent();
@@ -102,4 +98,4 @@ const Detail = () => {
   );
 };
 
-export default Detail;
+export default Category;

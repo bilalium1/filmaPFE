@@ -10,7 +10,7 @@ function NavBar(){
             <button className={`${buttoncss}`}>✦︎ About</button>
             <button className={`${buttoncss}`}>➥ Films</button>
             <button className={`${buttoncss}`}>➥ Dicouvrir</button>
-            <button className={`${buttoncss}`}>➥ Series</button>
+            <button className={`${buttoncss}`}>➥ Genres</button>
             <button className={`absolute right-1 top-1 ${buttoncss}`}>❯❯ Se Connecter</button>
         </div>
     )

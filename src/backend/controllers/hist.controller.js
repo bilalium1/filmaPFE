@@ -1,4 +1,4 @@
-import HIS from "../models/historique.model.js";
+import HIS from "../models/hist.model.js";
 
 // Créer un historique (ajouter un film regardé par un utilisateur)
 export const createHistorique = async (req, res) => {

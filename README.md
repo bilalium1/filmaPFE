@@ -1,8 +1,15 @@
-# FIL.MA : PROJET DE FIN D'ETUDE
+<h1 align="center">FIL.MA : PROJET DE FIN D'ETUDE</h1>
 
 ![logo](https://i.ibb.co/214f7PgD/filma.png)
 
 **Plateforme de streaming gratuite développée avec M.E.R.N : films/séries en HD, lecture fluide et recommandations intelligentes. UX simple et performante. 🎥🚀**
+
+### Vous pouvez visiter le demo du site ici :
+## https://filma-pfe.vercel.app
+
+Image de site :
+
+![image_du_site](https://i.ibb.co/JXfkpqq/Screenshot-2025-04-09-at-17-14-59-Fil-ma.png)
 
 # F.A.Q :
 
@@ -44,6 +51,45 @@ En utilisant JavaScript sur toute la stack, nous simplifions le développement e
 
     Performance : Comment optimiser le streaming pour minimiser le buffering ?
 
+# Pour les developpeurs :
+
+**Etape 0 :**
+
+- il faut installer Git bash avant tout : https://git-scm.com/downloads
+- Ouvrir le git bash dans votre system et suivi les etapes au dessous
+
+**Etape 1 :**
+- il faut installer node.js avec npm via le site officiel :  https://nodejs.org/fr/download
+
+- Valider si node.js et npm sont installee avect les commandes suivants : 
+
+- tapez ces commandes dans le Git bash :
+```bash
+npm -v
+node -v  
+```
+
+**Etape 2 :**
+- Va dans le dossier qui vous voulez utilisant le command `cd` :
+```bash
+# Example
+cd C:/Users/[TonNom]/Documents/
+```
+- dans le dossier de votre choix, tapez le command suivant pour importer le projet dans votre dossier :
+```bash
+git clone https://github.com/bilalium1/filmaPFE.git
+```
+- (Pour collier les texts dans git bash il faut faire Shift + Insérer)
+
+**Etape 3 :**
+- Apres ca, vous pouvez afficher le frontend du site localement avec la commande :
+```bash
+npm run start
+```
+- Pour Démarrer le Serveur tapez le commande suivant :
+```bash
+npm run dev
+``` 
 
 **Bilal lemrabet**
 **Mehdi Terech**

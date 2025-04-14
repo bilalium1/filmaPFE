@@ -2,13 +2,19 @@ import express from 'express';
 import mongoose from 'mongoose';
 import 'dotenv/config'; // Add this line at the top
 import filmRoutes from "./routes/film.route.js";
+import userRoutes from "./routes/user.route.js";
+import cors from 'cors'
+import authRoutes from './routes/auth.js'
 
 const app = express();
-// pour accepter JSON dans le DB 
+
+// pour accepter JSON dans le DB middleware
 app.use(express.json())
+app.use(cors());
 
 app.use("/api/films", filmRoutes);
-//app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
 //app.use("/api/favorites", favRoutes);
 //app.use("/api/history", histRoutes);
 //app.use("/api/reviews", revRoutes);

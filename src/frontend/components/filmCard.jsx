@@ -27,7 +27,7 @@ import { useNavigate } from 'react-router-dom';
 }
 */
 
-function FilmCard({film}){
+function FilmCard({film = []}){
     if (!film) return null;
 
     const navigate = useNavigate();

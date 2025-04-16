@@ -3,10 +3,11 @@ import axios from 'axios';
 import Tete from '../components/tete.jsx';
 import NavBar from '../components/navbar.jsx';
 import CategoryDiv from '../components/Categorydiv.jsx';
-import { FaBullseye } from 'react-icons/fa';
 
 
 function Homepage() {
+
+  const [active, setActive] = useState(false);
 
   const [medias, setMedias] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -100,6 +101,7 @@ function Homepage() {
         <div className='relative top-120 m-auto w-25 h-25 border-t-2 animate-spin rounded-full'></div>
       </div>} 
       <Tete/>
+
       <NavBar medias={medias}/>
       
       {/* Search Bar and Tab Selector */}

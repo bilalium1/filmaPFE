@@ -1,12 +1,11 @@
 
 import './App.css'
-import { motion } from "motion/react"
-import pic from "./assets/int.jpg"
-import { Scale } from '@mui/icons-material';
-import Tete from './components/tete.jsx'
-import NavBar from './components/navbar.jsx';
-import Category from './components/Category2.jsx'
-import CategoryDiv from './components/Categorydiv.jsx'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Homepage from './pages/homepage.jsx';
+import Aboutpage from './pages/aboutpage.jsx';
+import MoviePage from './pages/moviepage.jsx';
+import TvPage from './pages/tvpage.jsx';
+
 
 function App() {
     return (

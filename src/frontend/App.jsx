@@ -4,9 +4,13 @@ import { motion } from "motion/react"
 import pic from "./assets/int.jpg"
 import { Scale } from '@mui/icons-material';
 import Tete from './components/tete.jsx'
-import NavBar from './components/navbar.jsx';
+import Navbar from './src/frontend/components/navbar'; 
 import Category from './components/Category2.jsx'
 import CategoryDiv from './components/Categorydiv.jsx'
+import App from './src/frontend/App.jsx'; 
+import App from '@/frontend/App.jsx';  
+
+
 
 function App() {
   const [count, setCount] = useState(0)

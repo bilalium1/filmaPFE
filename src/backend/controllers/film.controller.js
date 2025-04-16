@@ -14,9 +14,22 @@ export const createFilm = async (req, res) => {
 
 // C'EST LE GET, CETTE FONCTION PREND TOUS LES FILMS DISPONIBLES
 export const getFilm = async (req, res) => {
-    const films = await Film.find();
-    res.json(films);
-}
+    try {
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 20;
+      const skip = (page - 1) * limit;
+  
+      const films = await Film.find()
+        .sort({ popularity: -1 }) // Keep consistent sorting
+        .skip(skip)
+        .limit(limit);
+  
+      res.json(films);
+    } catch (err) {
+      res.status(400).json({ error: err.message });
+    }
+};
+  
 
 // CETTE FONCTION CHERCHE LE FILM PAR ID
 export const getFilmId = async (req, res) => {

@@ -8,6 +8,7 @@ const filmSchema = new mongoose.Schema({
     adult: { type: Boolean, required: true  },
     backdrop_path: { type: String, required: true  },
     homepage: { type: String, required: true  },
+    imdb_id: {type: String, required: true},
     overview: { type: String , required: true },
     popularity: { type: Number, required: true  },
     poster_path: { type: String, required: true  },

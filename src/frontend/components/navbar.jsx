@@ -1,12 +1,18 @@
 
 import filmalogo from '../assets/filma.png'
 import { useNavigate } from 'react-router-dom'
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { useState } from 'react'
+import DropMenu from './dropMenu.jsx'
 
 function NavBar({medias}){
 
     const navigate = useNavigate()
+
+    const drops = {
+      "About" : "/about",
+      "Films" : "/api/movies/popular",
+      "Series": "/api/tv/popular"
+    }
 
     const buttoncss="px-4 mx-1 my-auto h-4/5 rounded-md text-stone-100 font-light tracking-wider hover:text-stone-950 transition-all b ease-out hover:px-6 hover:text-lg hover:backdrop-brightness-400 hover:font-black cursor-pointer"
     return (
@@ -17,30 +23,7 @@ function NavBar({medias}){
             <button className={`${buttoncss}`}>➥ Dicouvrir</button>
             <button className={`${buttoncss}`}>➥ Genres</button>
 
-            <Menu as="div" className="relative inline-block text-left mt-1 h-12">
-                      <MenuButton className={`my-auto m-0 ${buttoncss}`}>
-                        Medias ▼
-                      </MenuButton>
-            
-                      <MenuItems className="absolute mt-4 w-56 origin-top-left backdrop-blur-sm border-t-2 rounded-md bg-stone-800/50 shadow-lg z-10">
-                        <div className="py-1">
-                          {['About ➥', 'Series ➥', 'Films ➥', 'Hello'].map((label, idx) => (
-                            <MenuItem key={idx}>
-                              {({ active }) => (
-                                <a
-                                  href={`/about`}
-                                  className={`block px-4 py-2 m-2 rounded-sm text-sm transition-all ${
-                                    active ? 'bg-stone-200/80 text-stone-800 px-10' : 'text-white'
-                                  }`}
-                                >
-                                  {label}
-                                </a>
-                              )}
-                            </MenuItem>
-                          ))}
-                        </div>
-                      </MenuItems>
-              </Menu>
+            <DropMenu title={"Medias"} elements={drops} css={buttoncss} />
 
             <button className={`absolute right-1 top-1 ${buttoncss}`}>❯❯ Se Connecter</button>
         </div>

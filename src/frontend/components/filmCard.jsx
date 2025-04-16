@@ -37,7 +37,7 @@ function FilmCard({film = []}){
       if (type === "film") {
         navigate(`/films/${film.id}`);
       } else if (type === "serie") {
-        navigate(`/series/${film.id}`);
+        navigate(`/series/${film.id}/1/1`);
       }
     };
     

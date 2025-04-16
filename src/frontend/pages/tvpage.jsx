@@ -4,9 +4,11 @@ import { useParams } from 'react-router-dom';
 import NavBar from '../components/navbar.jsx';
 import axios from 'axios';
 import TvStream from '../components/TvStream.jsx';
+import DropMenu from '../components/dropMenu.jsx';
+import { object } from 'motion/react-client';
 
 const TvPage = () => {
-  const { id } = useParams();
+  const { id, season, episode } = useParams();
   const [show, setShow] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -35,7 +37,25 @@ const TvPage = () => {
   if (error) return <div className="error-message">Error: {error}</div>;
   if (!show) return <div>Show not found</div>;
 
-  console.log(show.title)
+  const seasons = {};
+  const eps = {};
+  show.seasons.forEach((seasonn, index) => {
+  const seasonNumber = index + 1;
+  seasons[`Season ${seasonNumber}`] = `/series/${show.id}/${seasonNumber}/1`;
+
+
+  let ep = 0; // Global counter for all episodes
+
+  for (ep=0; ep< show.seasons[season-1].episode_count;ep++){
+    eps[`Episode ${ep+1}`] = `/series/${show.id}/${season}/${ep+1}`
+  }
+
+  console.log(seasons);
+  console.log(eps);
+
+});
+
+  const buttoncss="px-4 mx-1 my-auto h-4/5 rounded-md text-stone-100 font-light tracking-wider hover:text-stone-950 transition-all b ease-out hover:px-6 hover:text-lg hover:backdrop-brightness-400 hover:font-black cursor-pointer"
 
   return (
     <div className="flex h-full w-full">
@@ -54,10 +74,12 @@ const TvPage = () => {
             </div>
             <p className='absolute w-20 h-10 rounded-xl left-10 text-2xl font-bold p-1 top-5 bg-amber-300/50 backdrop-blur-sm z-3'>{`★ ${show.vote_average.toFixed(1)}`}</p>
             <img src={`https://image.tmdb.org/t/p/original/${show.backdrop_path}`} className='absolute top-0 w-full h-150 object-cover opacity-50 -z-1 mask-fade-bottom'/>
+            <DropMenu title={"Seasons"} elements={seasons} css={buttoncss}/>
+            <DropMenu title={"Episodes"} elements={eps} css={buttoncss}/>
         </div>
 
         <div className='absolute h-full w-29/30 top-180 left-1/2 -translate-x-1/2'>
-          <TvStream videoID={`${show.id}`} s={"1"} e={"1"} />
+          <TvStream videoID={`${show.id}`} s={season} e={episode} />
         </div>
     </div>
   );

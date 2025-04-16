@@ -1,25 +1,23 @@
-import { useState } from 'react'
+
 import './App.css'
-import { motion } from "motion/react"
-import pic from "./assets/int.jpg"
-import { Scale } from '@mui/icons-material';
-import Tete from './components/tete.jsx'
-import NavBar from './components/navbar.jsx';
-import Category from './components/Category2.jsx'
-import CategoryDiv from './components/Categorydiv.jsx'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Homepage from './pages/homepage.jsx';
+import Aboutpage from './pages/aboutpage.jsx';
+import MoviePage from './pages/moviepage.jsx';
+import TvPage from './pages/tvpage.jsx';
+
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-      <div className='w-full h-full flex-col'>
-        <h3>LE FRONTEND N'EST PAS ENCORE FINI </h3>
-        <Tete/>
-        <NavBar/>
-        <CategoryDiv title="Favorites"/>
-        <CategoryDiv title="Drama"/>
-      </div>
-  )
+    return (
+      <Router>
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/about" element={<Aboutpage />} />
+          <Route path="/films/:id" element={<MoviePage />}/>
+          <Route path="/series/:id" element={<TvPage />}/>
+        </Routes>
+      </Router>
+    );
 }
 
 export default App

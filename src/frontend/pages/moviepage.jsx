@@ -5,11 +5,14 @@ import NavBar from '../components/navbar.jsx';
 import axios from 'axios';
 import Stream from '../components/MovieStream.jsx';
 
+const servers = [ 'UN', 'DEUX', 'TROIS', 'QUATRE']
+
 const FilmPage = () => {
   const { id } = useParams();
   const [film, setFilm] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [srvr, setSrvr] = useState(0);
 
   useEffect(() => {
     const fetchFilm = async () => {
@@ -37,10 +40,12 @@ const FilmPage = () => {
 
   console.log(film.title)
 
+   const buttoncss="px-4 mx-1 my-auto h-12 rounded-md text-stone-100 font-light tracking-wider hover:text-stone-950 transition-all b ease-out hover:px-6 hover:text-lg hover:backdrop-brightness-400 hover:font-black cursor-pointer"
+
   return (
     <div className="flex h-full w-full">
         <NavBar/>
-        <div className='relative mx-auto mt-20 h-500 w-9/10 bg-linear-to-b from-cyan-900/50 to-75% border-t-[3px] rounded-2xl overflow-hidden'>
+        <div className='relative mx-auto mt-20 h-500 w-9/10 bg-linear-to-b from-cyan-900/20 to-75% border-t-[3px] rounded-2xl overflow-hidden'>
             <h3 className='w-full h-20 text-4xl font-extrabold z-2 text-center p-5'>{film.title}</h3>
 
             <div className='relative inline-flex w-full h-120'>
@@ -53,11 +58,22 @@ const FilmPage = () => {
 
             </div>
             <p className='absolute w-20 h-10 rounded-xl left-10 text-2xl font-bold p-1 top-5 bg-amber-300/50 backdrop-blur-sm z-3'>{`★ ${film.vote_average.toFixed(1)}`}</p>
-            <img src={`https://image.tmdb.org/t/p/original/${film.backdrop_path}`} className='absolute top-0 w-full h-150 object-cover opacity-50 -z-1 mask-fade-bottom'/>
+            <img src={`https://image.tmdb.org/t/p/original/${film.backdrop_path}`} className='absolute top-0 w-full h-150 object-cover opacity-80 -z-1 mask-fade-bottom'/>
+            <img src={`https://image.tmdb.org/t/p/original/${film.poster_path}`} className='absolute top-150 w-full h-full object-cover opacity-20 blur-sm -z-1 mask-fade-top'/>
         </div>
 
         <div className='absolute h-full w-29/30 top-180 left-1/2 -translate-x-1/2'>
-          <Stream videoID={film.id}/>
+          <Stream videoID={film.id} server={srvr}/>
+
+          {servers.map((server, index) => (
+            <button
+              key={index}
+              onClick={() => setSrvr(index)}  // index is a number
+              className={`mt-5 hover:bg-white px-5 hover:px-10 active:border-0 active:bg-cyan-800  ${buttoncss}`}
+            >
+              {server}
+            </button>
+          ))}
         </div>
     </div>
   );

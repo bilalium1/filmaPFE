@@ -5,13 +5,15 @@ import NavBar from '../components/navbar.jsx';
 import axios from 'axios';
 import TvStream from '../components/TvStream.jsx';
 import DropMenu from '../components/dropMenu.jsx';
-import { object } from 'motion/react-client';
+
+const servers = [ 'UN', 'DEUX', 'TROIS', 'QUATRE']
 
 const TvPage = () => {
   const { id, season, episode } = useParams();
   const [show, setShow] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [srvr, setSrvr] = useState(0);
 
   useEffect(() => {
     const fetchShow = async () => {
@@ -50,17 +52,14 @@ const TvPage = () => {
     eps[`Episode ${ep+1}`] = `/series/${show.id}/${season}/${ep+1}`
   }
 
-  console.log(seasons);
-  console.log(eps);
-
 });
 
-  const buttoncss="px-4 mx-1 my-auto h-4/5 rounded-md text-stone-100 font-light tracking-wider hover:text-stone-950 transition-all b ease-out hover:px-6 hover:text-lg hover:backdrop-brightness-400 hover:font-black cursor-pointer"
+  const buttoncss="px-4 mx-1 my-auto h-12 rounded-md text-stone-100 font-light tracking-wider hover:text-stone-950 transition-all b ease-out hover:px-6 hover:text-lg hover:backdrop-brightness-400 hover:font-black cursor-pointer"
 
   return (
     <div className="flex h-full w-full">
         <NavBar/>
-        <div className='relative mx-auto mt-20 h-500 w-9/10 bg-linear-to-b from-cyan-900/50 to-75% border-t-[3px] rounded-2xl overflow-hidden'>
+        <div className='relative border-white hover:border-t-4 border-t-2 mx-auto mt-20 h-500 w-9/10 bg-linear-to-b from-cyan-900/20 to-75% rounded-2xl overflow-hidden'>
             <h3 className='w-full h-20 text-4xl font-extrabold z-2 text-center p-5'>{show.name}</h3>
 
             <div className='relative inline-flex w-full h-120'>
@@ -73,13 +72,24 @@ const TvPage = () => {
 
             </div>
             <p className='absolute w-20 h-10 rounded-xl left-10 text-2xl font-bold p-1 top-5 bg-amber-300/50 backdrop-blur-sm z-3'>{`★ ${show.vote_average.toFixed(1)}`}</p>
-            <img src={`https://image.tmdb.org/t/p/original/${show.backdrop_path}`} className='absolute top-0 w-full h-150 object-cover opacity-50 -z-1 mask-fade-bottom'/>
+            <img src={`https://image.tmdb.org/t/p/original/${show.backdrop_path}`} className='absolute top-0 w-full h-150 object-cover opacity-80 -z-1 mask-fade-bottom'/>
+            <img src={`https://image.tmdb.org/t/p/original/${show.poster_path}`} className='absolute top-150 w-full h-full object-cover opacity-20 blur-sm -z-1 mask-fade-top'/>
             <DropMenu title={"Seasons"} elements={seasons} css={buttoncss}/>
             <DropMenu title={"Episodes"} elements={eps} css={buttoncss}/>
         </div>
 
         <div className='absolute h-full w-29/30 top-180 left-1/2 -translate-x-1/2'>
-          <TvStream videoID={`${show.id}`} s={season} e={episode} />
+          <TvStream videoID={`${show.id}`} s={season} e={episode} server={srvr} />
+
+          {servers.map((server, index) => (
+            <button
+              key={index}
+              onClick={() => setSrvr(index)}  // index is a number
+              className={`mt-5 hover:bg-white px-5 hover:px-10 active:border-0 active:bg-cyan-800  ${buttoncss}`}
+            >
+              {server}
+            </button>
+          ))}
         </div>
     </div>
   );

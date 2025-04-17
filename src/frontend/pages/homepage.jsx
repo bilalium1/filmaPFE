@@ -3,6 +3,7 @@ import axios from 'axios';
 import Tete from '../components/tete.jsx';
 import NavBar from '../components/navbar.jsx';
 import CategoryDiv from '../components/Categorydiv.jsx';
+import offdata from '../offline_data.json';
 
 
 function Homepage() {
@@ -74,7 +75,12 @@ function Homepage() {
     loadInitData();
   }, []);
 
+  if (medias.length===0) {
+    setMedias(offdata.results);
+  }
+
   console.log(medias);
+  
 
   const categories = useMemo(() => [
     { title: "Tendance 🔥 ", genre: 0 },
@@ -103,10 +109,6 @@ function Homepage() {
       <Tete/>
 
       <NavBar medias={medias}/>
-      
-      {/* Search Bar and Tab Selector */}
-      <div className="flex flex-col items-center gap-4 p-4 bg-stone-900/50">
-      </div>
 
       {/* Category Sections - Only show for popular tab */}
       {categories.map(cat => (

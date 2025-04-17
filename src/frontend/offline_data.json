@@ -1,0 +1,48 @@
+{
+    "page": 1,
+    "results": [
+      {
+        "adult": false,
+        "backdrop_path": "/op3qmNhvwEvyT7UFyPbIfQmKriB.jpg",
+        "genre_ids": [
+          14,
+          12,
+          28
+        ],
+        "id": 324544,
+        "original_language": "en",
+        "original_title": "In the Lost Lands",
+        "overview": "A queen sends the powerful and feared sorceress Gray Alys to the ghostly wilderness of the Lost Lands...",
+        "popularity": 727.9871,
+        "poster_path": "/iHf6bXPghWB6gT8kFkL1zo00x6X.jpg",
+        "release_date": "2025-02-27",
+        "title": "In the Lost Lands",
+        "video": false,
+        "vote_average": 6.354,
+        "vote_count": 182,
+        "media_type": "movie"
+      },
+      {
+        "adult": false,
+        "backdrop_path": "/2Nti3gYAX513wvhp8IiLL6ZDyOm.jpg",
+        "genre_ids": [
+          10751,
+          35,
+          12,
+          14
+        ],
+        "id": 950387,
+        "original_language": "en",
+        "original_title": "A Minecraft Movie",
+        "overview": "Four misfits find themselves struggling with ordinary problems when they are suddenly pulled through a mysterious portal...",
+        "popularity": 673.4901,
+        "poster_path": "/yFHHfHcUgGAxziP1C3lLt0q2T4s.jpg",
+        "release_date": "2025-03-31",
+        "title": "A Minecraft Movie",
+        "video": false,
+        "vote_average": 6.094,
+        "vote_count": 559,
+        "media_type": "movie"
+      }
+    ]
+  }

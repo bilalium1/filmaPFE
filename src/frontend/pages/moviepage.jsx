@@ -51,7 +51,7 @@ const FilmPage = () => {
             <div className='relative inline-flex w-full h-120'>
 
               <img src={`https://image.tmdb.org/t/p/original/${film.poster_path}`} className='relative h-120 w-80 mx-auto rounded-2xl shadow-2xl border-t-[3px] opacity-80 hover:mt-2 hover:saturate-120 transition-all'/>
-              <div className='relative w-6/10 h-120 mx-auto rounded-2xl shadow-2xl border-t-[3px] bg-stone-800/40 mix-blend-overlay hover:mt-2 transition-all'>
+              <div className='relative w-6/10 h-120 mx-auto rounded-2xl shadow-2xl border-t-[3px] bg-stone-800/40 hover:mt-2 transition-all'>
                 <p className='text-left px-5 pt-5 text-sm font-bold'>➤ {film.overview}</p>
                 <p className='absolute tracking-widest right-5 bottom-5 font-bold'>{film.release_date}</p>
               </div>

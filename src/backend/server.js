@@ -30,7 +30,10 @@ const __dirname = path.dirname(__filename);
 
 // Initializer le serveur dans le port 1111
 app.listen(1111, () => {
-    console.log('Server is running on port 1111');
+    console.log(
+        '✹ Serveur Initializer dans le PORT 1111, Voice le lien: \n \x1b[34m%s\x1b[0m', // \x1b[34m = blue, \x1b[0m = reset
+        '▒ http://localhost:1111 ◥'
+      );
 });
 
 const rootDir = path.join(__dirname, '../../')
@@ -44,7 +47,7 @@ app.get('*', (req, res) => {
 
 mongoose.connect(process.env.MONGO_URL)
     .then(() => {
-        console.log('CONNECTED TO DB');
+        console.log('✹ DB CONNECTEE! ✔');
     })
     .catch((err) => {
         console.error('DB CONNECTION ERROR:', err);

@@ -39,10 +39,10 @@ app.listen(1111, () => {
 const rootDir = path.join(__dirname, '../../')
 
 // lier le backend avec le fontend
-app.use(express.static(path.join(rootDir, 'dist')));
+app.use(express.static(path.join(rootDir, 'public/dist')));
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(rootDir, 'dist', 'index.html'))
+    res.sendFile(path.join(rootDir, 'public/dist', 'index.html'))
 })
 
 mongoose.connect(process.env.MONGO_URL)

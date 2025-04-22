@@ -1,13 +1,12 @@
-
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 
 function DropMenu({ title, elements = {}, css = "" }) {
     return (
-      <Menu as="div" className="relative inline-block text-left mt-1 h-12">
-        <MenuButton className={`my-auto m-0 ${css}`}>
+      <Menu as="div" className="relative inline-block uppercase text-left">
+        <MenuButton className={`${css}`}>
           {title} ▼
         </MenuButton>
-        <MenuItems className="absolute mt-4 w-56 origin-top-left backdrop-blur-sm border-t-2 rounded-md bg-stone-800/50 shadow-lg z-10">
+        <MenuItems className="absolute mt-5 w-auto w-min-50 backdrop-blur-sm border-t-2 rounded-md bg-stone-800/50 shadow-lg z-10">
           <div className="py-1">
             {Object.entries(elements).map(([name, path]) => (
               <MenuItem key={name}>

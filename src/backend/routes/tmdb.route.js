@@ -9,6 +9,8 @@ import {
   searchMulti,
   getMovieGenres,
   getTVGenres,
+  discoverMovies,       // Make sure this is exported
+  discoverTVShows
 } from '../controllers/tmdb.controller.js';
 
 const router = express.Router();
@@ -29,5 +31,9 @@ router.get('/search', searchMulti);
 // Genre routes
 router.get('/genres/movies', getMovieGenres);
 router.get('/genres/tv', getTVGenres);
+
+// Discover
+router.get('/discover/movie', discoverMovies);
+router.get('/discover/tv', discoverTVShows);
 
 export default router;

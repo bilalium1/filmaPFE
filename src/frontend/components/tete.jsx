@@ -19,7 +19,7 @@ function Tete () {
 
                     <div className='absolute inline-flex gap-3 top-3 w-full h-20'>
 
-                        <p className='relative p-1.5 tracking-[1px] text-7xl bg-stone-950/50 [box-shadow:0px_10px_20px_0px_rgba(0,0,0,0.3)] px-4 text-left w-auto h-10 rounded-lg backdrop-blur-sm text-white z-3 font-chakra font-bold uppercase left-3'> Dune </p>
+                        <p className='relative p-1.5 tracking-[1px] text-6xl bg-stone-950/50 [box-shadow:0px_10px_20px_0px_rgba(0,0,0,0.3)] px-4 text-left w-auto h-10 rounded-lg backdrop-blur-sm text-white z-3 font-chakra font-bold uppercase left-3'>Yacine 13</p>
                         <p className='relative p-1.5 tracking-wide text-lg bg-stone-950/50 px-4 text-left w-auto h-10 rounded-lg backdrop-blur-sm text-white z-3 font-light uppercase left-3'> ▧ Film </p>
                         <p className='relative p-1.5 tracking-wide text-lg bg-amber-300/50 px-4 text-left w-auto h-10 rounded-lg backdrop-blur-sm text-white z-3 font-light uppercase left-3'> ★ 9.1 </p>
                         <p className={`absolute ${ sauve ? "opacity-100" : "opacity-0"} p-1.5 tracking-wide text-lg bg-pink-400/80 px-4 text-left w-auto h-10 rounded-lg backdrop-blur-sm text-white z-3 font-light uppercase right-3 transition-all`}> Favorite </p>

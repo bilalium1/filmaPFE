@@ -30,10 +30,10 @@ function NavBar({medias}){
         "✦ Theatres Amicals": "/api/tv/popular"
     }
 
-    const buttoncss=" h-3/4 rounded-sm mx-2 mt-1.5 hover:backdrop-brightness-200 transition-all px-3 uppercase cursor-pointer"
+    const buttoncss=" h-3/4 lg:text-lg text-[7px] rounded-sm lg:mx-2 mx-0 mt-1.5 hover:backdrop-brightness-200 transition-all px-3 uppercase cursor-pointer"
     return (
-        <div className="fixed inline-flex top-5 gap-0 my-auto z-10 w-19/20 h-12 left-1/2 transform -translate-x-1/2 rounded-md bg-stone-950/50 backdrop-blur-sm border-[2px] border-stone-100/0 hover:border-stone-100/100 transition-all">
-            <p onClick={() => navigate('/')} className="px-5 my-auto h-4/5 rounded-md text-stone-100 font-light tracking-wider text-3xl hover:rotate-x-10 transition-all cursor-pointer hover:font-black"> FIL.MA 🇲🇦 </p>
+        <div className="fixed inline-flex top-5 gap-0 my-auto z-10 w-19/20 sm:h-12 h-8 left-1/2 transform -translate-x-1/2 rounded-md bg-stone-950/50 backdrop-blur-sm border-[2px] border-stone-100/0 hover:border-stone-100/100 transition-all">
+            <p onClick={() => navigate('/')} className="sm:px-5 px-1 my-auto h-4/5 w-auto rounded-md text-stone-100 font-light tracking-wider text-md sm:text-3xl hover:rotate-x-10 transition-all cursor-pointer hover:font-black"> FIL.MA 🇲🇦 </p>
             <button onClick={() => navigate('/about')} className={`${buttoncss}`}>✦︎ About</button>
 
             <DropMenu title={"Films"} elements={films} css={buttoncss} />

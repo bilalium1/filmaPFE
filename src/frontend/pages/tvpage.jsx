@@ -64,7 +64,7 @@ const TvPage = () => {
 
             <div className='relative inline-flex w-full h-120'>
 
-              <img src={`https://image.tmdb.org/t/p/original/${show.poster_path}`} className='relative h-120 w-80 mx-auto rounded-2xl shadow-2xl border-t-[3px] opacity-80 hover:mt-2 hover:saturate-120 transition-all'/>
+              <img src={`https://image.tmdb.org/t/p/original/${show.poster_path}`} className='relative lg:h-120 h-50 lg:w-80 w-30 mx-auto rounded-2xl shadow-2xl border-t-[3px] opacity-80 hover:mt-2 hover:saturate-120 transition-all'/>
               <div className='relative w-6/10 h-120 mx-auto rounded-2xl shadow-2xl border-t-[3px] bg-stone-800/40 hover:mt-2 transition-all'>
                 <p className='text-left px-5 pt-5 text-sm font-bold'>➤ {show.overview}</p>
                 <p className='absolute tracking-widest right-5 bottom-5 font-bold'>{show.release_date}</p>

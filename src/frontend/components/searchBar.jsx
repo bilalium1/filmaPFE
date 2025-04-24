@@ -39,7 +39,7 @@ export default function SearchBar({css=""}) {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:1111/api/search?language=en-US&query=${query}&page=1&include_adult=false`
+        `/api/search?language=en-US&query=${query}&page=1&include_adult=false`
       );
       const data = await response.json();
       setResults(data.results || []);

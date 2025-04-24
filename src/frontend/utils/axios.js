@@ -1,9 +1,7 @@
 // src/frontend/utils/axios.js
 import axios from 'axios';
 
-const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || '/api',
-});
+const api = axios.create({});
 
 api.interceptors.response.use(
   response => response,

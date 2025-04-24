@@ -1,29 +1,27 @@
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback, useContext } from 'react';
 import axios from 'axios';
 import Tete from '../components/tete.jsx';
 import NavBar from '../components/navbar.jsx';
 import CategoryDiv from '../components/Categorydiv.jsx';
-import offdata from '../offline_data.json';
-
+import { AuthContext } from '../context/AuthContext.jsx'; 
 
 function Homepage() {
 
   const [active, setActive] = useState(false);
+
+  const { user, isLoading } = useContext(AuthContext);
 
   const [medias, setMedias] = useState([]);
   const [loading, setLoading] = useState(true);
   const [cPage, setcPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const BASE_URL = 'filma-pfe.vercel.app'
-  const LOCAL_URL = 'http://localhost:1111'
-
   const fetchMedias = useCallback(async(page = 1) => {
     try {
 
       const [mv_res, tv_res] = await Promise.all([
-        axios.get(`${BASE_URL}/api/movies/popular?page=${page}`),
-        axios.get(`${BASE_URL}/api/tv/popular?page=${page}`)
+        axios.get(`/api/movies/popular?page=${page}`),
+        axios.get(`/api/tv/popular?page=${page}`)
       ]);
 
       setTotalPages(mv_res.data.total_pages);
@@ -76,14 +74,7 @@ function Homepage() {
     };
   
     loadInitData();
-  }, []);
-
-  if (medias.length===0) {
-    setMedias(offdata.results);
-  }
-
-  console.log(medias);
-  
+  }, []); 
 
   const categories = useMemo(() => [
     { title: "Tendance 🔥 ", genre: 0 },
@@ -102,6 +93,9 @@ function Homepage() {
     { title: "Marvel", genre: null, studio: "Marvel Studios" }
   ], []);
 
+  console.log(user?.email);
+
+  
   return (
     <div className='w-full h-full flex-col'>
       <h3>LE FRONTEND N'EST PAS ENCORE FINI</h3>
@@ -109,8 +103,8 @@ function Homepage() {
         <p className='relative w-full text-4xl font-bold uppercase text-center top-100 animate-pulse'>Une moment...</p>
         <div className='relative top-120 m-auto w-25 h-25 border-t-2 animate-spin rounded-full'></div>
       </div>} 
-      <Tete/>
-
+      <Tete/> 
+      
       <NavBar medias={medias}/>
 
       {/* Category Sections - Only show for popular tab */}

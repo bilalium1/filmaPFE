@@ -1,12 +1,17 @@
 
 import filmalogo from '../assets/filma.png'
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import DropMenu from './dropMenu.jsx'
 import { FaSearch } from "react-icons/fa";
+import { CiLogout } from "react-icons/ci";
 import SearchBar from './searchBar.jsx';
+import { AuthContext } from '../context/AuthContext.jsx'; 
 
 function NavBar({medias}){
+
+    const {user, isLoading} = useContext(AuthContext);
+    const { logout } = useContext(AuthContext);
 
     const [s_open, setSopen] = useState(false)
 
@@ -41,10 +46,11 @@ function NavBar({medias}){
             <DropMenu title={"Theatres"} elements={theatres} css={buttoncss} />
 
             <FaSearch onClick={() => setSopen(!s_open)} className='hover:backdrop-brightness-150 size-9 rounded-sm p-3 cursor-pointer my-auto'/>
+            { user && (<CiLogout onClick={logout} className='absolute right-2 top-2 hover:bg-red-400 size-8 rounded-sm p-2 bg-red-400/50 cursor-pointer my-auto'/>)}
 
             <SearchBar css={ s_open ? "opacity-100 mt-15 blur-0" : "opacity-0 mt-10 pointer-events-none"}/>
 
-            <button onClick={() => navigate('/auth')} className={`absolute right-0 ${buttoncss}`}>❯❯ Se Connecter</button>
+            <button onClick={() => navigate('/auth')} className={`absolute ${ !user ? "right-0" : "right-10"} ${buttoncss}`}>❯❯ {!user ? "Se Connecter" : user.username}</button>
         </div>
     )
 }

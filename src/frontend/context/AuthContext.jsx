@@ -3,7 +3,7 @@ import { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
 // Set base URL for all axios requests
-axios.defaults.baseURL = 'http://localhost:1111'; // Adjust if using a proxy
+axios.defaults.baseURL = '' // Adjust if using a proxy
 
 export const AuthContext = createContext();
 
@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
   // Fetch user data when token exists
   const fetchUser = async (token) => {
     try {
-      const { data } = await axios.get('/auth/me', {
+      const { data } = await axios.get('api/auth/me', {
         headers: {
           Authorization: `Bearer ${token}`,
         },

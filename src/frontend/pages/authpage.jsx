@@ -1,8 +1,12 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EnvelopeIcon, LockClosedIcon, UserIcon, ArrowPathIcon, XCircleIcon } from '@heroicons/react/24/outline';
+import { AuthContext } from '../context/AuthContext.jsx'
+import axios from 'axios'
 
 export default function Auth() {
+
+  const { login } = useContext(AuthContext);
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     email: '',
@@ -39,17 +43,30 @@ export default function Auth() {
     setAuthError('');
     if (!validate()) return;
     setIsLoading(true);
+    
     try {
-      // API call simulation
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const endpoint = isLogin ? 'api/auth/login' : 'api/auth/register';
+      const payload = isLogin 
+        ? { email: formData.email, password: formData.password }
+        : formData;
+
+      const response = await axios.post(endpoint, payload);
+      
+      // Store the token using AuthContext's login function
+      login(response.data.token);
+      
+      // Redirect to home page after successful auth
       navigate('/');
     } catch (err) {
-      setAuthError(err.message || 'Authentication failed');
+      const errorMessage = err.response?.data?.message || 'Authentication failed';
+      setAuthError(errorMessage);
+      console.error('Auth error:', err);
     } finally {
       setIsLoading(false);
     }
   };
 
+  // ... rest of your component remains the same ...
   const toggleAuthMode = () => {
     setIsLogin(!isLogin);
     setErrors({});

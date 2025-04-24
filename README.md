@@ -9,7 +9,7 @@
 
 Image de site :
 
-![image_du_site](https://i.ibb.co/JXfkpqq/Screenshot-2025-04-09-at-17-14-59-Fil-ma.png)
+![image_du_site](./assets/image_site.png)
 
 # F.A.Q :
 
@@ -89,8 +89,16 @@ npm run start
 - Pour Démarrer le Serveur tapez le commande suivant :
 ```bash
 npm run dev
-``` 
+```
 
+**Partager le Site avec d'autres personnes.**
+- vous pouvez utiliser le commande public pour partager le site avec votre camarades :
+```bash
+npm run public
+```
+- Apres ca, scannez le Code QR affichee dans le terminal et voila!
+- Le site reste en ligne dont le proccessus et actif
+  
 **Bilal lemrabet**
 **Mehdi Terech**
 

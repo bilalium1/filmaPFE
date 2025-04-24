@@ -12,16 +12,19 @@ import { AuthProvider } from './context/AuthContext';
 function App() {
     return (
       <AuthProvider>
-        <Router>
-          <Routes>
-            <Route path="/" element={<Homepage />} />
-            <Route path="/about" element={<Aboutpage />} />
-            <Route path="/films/:id" element={<MoviePage />}/>
-            <Route path="/series/:id/:season/:episode" element={<TvPage />}/>
-            <Route path="/auth" element={<Auth/>}/>
-          </Routes>
-        </Router>
-        <chat />
+        <div className="min-h-screen flex flex-col">
+          <Router>
+            <Routes>
+              <Route path="/" element={<Homepage />} />
+              <Route path="/about" element={<Aboutpage />} />
+              <Route path="/films/:id" element={<MoviePage />}/>
+              <Route path="/series/:id/:season/:episode" element={<TvPage />}/>
+              <Route path="/auth" element={<Auth/>}/>
+            </Routes>
+          </Router>
+          <Footer />    
+          <ChatBot />   
+        </div>
       </AuthProvider>
     );
 }

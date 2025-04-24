@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import 'dotenv/config'; // Add this line at the top
 import filmRoutes from "./routes/film.route.js";
 import userRoutes from "./routes/user.route.js";
+import favRoutes from "./routes/favorite.routes.js";
 import cors from 'cors'
 import authRoutes from './routes/auth.js'
 import { fileURLToPath } from 'url';
@@ -19,7 +20,7 @@ app.use(cors());
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api", tmdbRoutes);
-//app.use("/api/favorites", favRoutes);
+app.use("/api/favorites", favRoutes);
 //app.use("/api/history", histRoutes);
 //app.use("/api/reviews", revRoutes);
 //app.use("/api/comments", commRoutes);

@@ -4,9 +4,16 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://vite.dev/config/
 export default defineConfig({
-  build : {
-    outDir: 'public/dist'
+  base : './',
+  server: {
+    host: true,
+    strictPort: true
   },
+  build : {
+    outDir: 'public/dist',
+    emptyOutDir: true
+  },
+  publicDir: './public/static',
   plugins: [
     react(),
     tailwindcss(),

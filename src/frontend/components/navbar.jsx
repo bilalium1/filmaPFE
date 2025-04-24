@@ -3,29 +3,48 @@ import filmalogo from '../assets/filma.png'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import DropMenu from './dropMenu.jsx'
+import { FaSearch } from "react-icons/fa";
+import SearchBar from './searchBar.jsx';
 
 function NavBar({medias}){
 
+    const [s_open, setSopen] = useState(false)
+
     const navigate = useNavigate()
 
-    const drops = {
-      "About" : "/about",
-      "Films" : "/api/movies/popular",
-      "Series": "/api/tv/popular"
+    const films = {
+        "✦ films Populaires" : "/api/movies/popular",
+        "✦ films Tendances" : "/api/movies/popular",
+        "✦ films Recentes": "/api/movies/popular"
     }
 
-    const buttoncss="px-4 mx-1 my-auto h-4/5 rounded-md text-stone-100 font-light tracking-wider hover:text-stone-950 transition-all b ease-out hover:px-6 hover:text-lg hover:backdrop-brightness-400 hover:font-black cursor-pointer"
+    const series = {
+        "✦ series Populaires" : "/api/tv/popular",
+        "✦ series Tendances" : "/api/tv/popular",
+        "✦ series Recentes": "/api/tv/popular"
+    }
+
+    const theatres = {
+        "✦ Theatres Publiques" : "/api/tv/popular",
+        "✦ Theatres Privees" : "/api/tv/popular",
+        "✦ Theatres Amicals": "/api/tv/popular"
+    }
+
+    const buttoncss=" h-3/4 lg:text-lg text-[7px] rounded-sm lg:mx-2 mx-0 mt-1.5 hover:backdrop-brightness-200 transition-all px-3 uppercase cursor-pointer"
     return (
-        <div className="fixed top-5 my-auto z-10 flex w-19/20 h-12 left-1/2 transform -translate-x-1/2 rounded-xl bg-stone-950/50 backdrop-blur-sm border-[2px] border-stone-100/0 hover:border-stone-100/100 transition-all">
-            <p onClick={() => navigate('/')} className="px-5 my-auto h-4/5 rounded-md text-stone-100 font-light tracking-wider text-3xl hover:rotate-x-10 transition-all cursor-pointer hover:font-black"> FIL.MA </p>
+        <div className="fixed inline-flex top-5 gap-0 my-auto z-10 w-19/20 sm:h-12 h-8 left-1/2 transform -translate-x-1/2 rounded-md bg-stone-950/50 backdrop-blur-sm border-[2px] border-stone-100/0 hover:border-stone-100/100 transition-all">
+            <p onClick={() => navigate('/')} className="sm:px-5 px-1 my-auto h-4/5 w-auto rounded-md text-stone-100 font-light tracking-wider text-md sm:text-3xl hover:rotate-x-10 transition-all cursor-pointer hover:font-black"> FIL.MA 🇲🇦 </p>
             <button onClick={() => navigate('/about')} className={`${buttoncss}`}>✦︎ About</button>
-            <button className={`${buttoncss}`}>➥ Films</button>
-            <button className={`${buttoncss}`}>➥ Dicouvrir</button>
-            <button className={`${buttoncss}`}>➥ Genres</button>
 
-            <DropMenu title={"Medias"} elements={drops} css={buttoncss} />
+            <DropMenu title={"Films"} elements={films} css={buttoncss} />
+            <DropMenu title={"Series"} elements={series} css={buttoncss} />
+            <DropMenu title={"Theatres"} elements={theatres} css={buttoncss} />
 
-            <button className={`absolute right-1 top-1 ${buttoncss}`}>❯❯ Se Connecter</button>
+            <FaSearch onClick={() => setSopen(!s_open)} className='hover:backdrop-brightness-150 size-9 rounded-sm p-3 cursor-pointer my-auto'/>
+
+            <SearchBar css={ s_open ? "opacity-100 mt-15 blur-0" : "opacity-0 mt-10 pointer-events-none"}/>
+
+            <button onClick={() => navigate('/auth')} className={`absolute right-0 ${buttoncss}`}>❯❯ Se Connecter</button>
         </div>
     )
 }

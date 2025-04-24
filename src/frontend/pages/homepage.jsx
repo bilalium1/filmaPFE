@@ -15,12 +15,15 @@ function Homepage() {
   const [cPage, setcPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
+  const BASE_URL = 'filma-pfe.vercel.app'
+  const LOCAL_URL = 'http://localhost:1111'
+
   const fetchMedias = useCallback(async(page = 1) => {
     try {
 
       const [mv_res, tv_res] = await Promise.all([
-        axios.get(`http://localhost:1111/api/movies/popular?page=${page}`),
-        axios.get(`http://localhost:1111/api/tv/popular?page=${page}`)
+        axios.get(`${BASE_URL}/api/movies/popular?page=${page}`),
+        axios.get(`${BASE_URL}/api/tv/popular?page=${page}`)
       ]);
 
       setTotalPages(mv_res.data.total_pages);

@@ -20,7 +20,7 @@
         "video": false,
         "vote_average": 6.354,
         "vote_count": 182,
-        "media_type": "movie"
+        "media_type": "film"
       },
       {
         "adult": false,
@@ -42,7 +42,7 @@
         "video": false,
         "vote_average": 6.094,
         "vote_count": 559,
-        "media_type": "movie"
+        "media_type": "serie"
       }
     ]
   }

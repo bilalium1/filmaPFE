@@ -115,3 +115,49 @@ export const getTVGenres = async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch TV genres' });
   }
 };
+
+// Discover Endpoints
+export const discoverMovies = async (req, res) => {
+  try {
+    const data = await makeTmdbRequest('/discover/movie', {
+      page: req.query.page || 1,
+      sort_by: req.query.sort_by || 'popularity.desc',
+      include_adult: req.query.include_adult || false,
+      include_video: req.query.include_video || false,
+      with_genres: req.query.with_genres,
+      year: req.query.year,
+      'vote_average.gte': req.query['vote_average.gte'],
+      'vote_count.gte': req.query['vote_count.gte'],
+      with_watch_providers: req.query.with_watch_providers,
+      watch_region: req.query.watch_region,
+      with_original_language: req.query.with_original_language,
+      ...req.query
+    });
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to discover movies' });
+  }
+};
+
+export const discoverTVShows = async (req, res) => {
+  try {
+    const data = await makeTmdbRequest('/discover/tv', {
+      page: req.query.page || 1,
+      sort_by: req.query.sort_by || 'popularity.desc',
+      include_adult: req.query.include_adult || false,
+      with_genres: req.query.with_genres,
+      first_air_date_year: req.query.first_air_date_year,
+      'vote_average.gte': req.query['vote_average.gte'],
+      'vote_count.gte': req.query['vote_count.gte'],
+      with_watch_providers: req.query.with_watch_providers,
+      watch_region: req.query.watch_region,
+      with_original_language: req.query.with_original_language,
+      with_status: req.query.with_status,
+      with_type: req.query.with_type,
+      ...req.query
+    });
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to discover TV shows' });
+  }
+};

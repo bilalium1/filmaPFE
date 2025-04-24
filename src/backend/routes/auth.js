@@ -48,16 +48,44 @@ router.post('/register',
 
 // Login
 router.post('/login', async (req, res) => {
-  const { username, password } = req.body;
-  const user = await User.findOne({ username });
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
   if (!user) return res.status(400).json({ error: 'Invalid credentials hh' });
 
   const isMatch = await user.comparePassword(password);
   if (!isMatch) return res.status(400).json({ error: 'Invalid credentials' });
 
   // Generate JWT
-  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '24h' });
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '3h' });
   res.json({ token });
+});
+
+// src/backend/routes/auth.js
+// auth.js (backend)
+router.get('/me', async (req, res) => {
+
+
+  console.log(req.headers);
+  const token = req.headers.authorization?.split(' ')[1];
+  
+  if (!token) {
+    return res.status(401).json({ error: 'Not authenticated' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(decoded.id).select('-password'); // Exclude password
+    if (!user) return res.status(404).json({ error: 'User not found' });
+    
+    res.json({
+      id: user._id,
+      username: user.username,
+      email: user.email,
+      is_admin: user.isAdmin // Include any other relevant fields
+    });
+  } catch (err) {
+    res.status(401).json({ error: 'Invalid token' });
+  }
 });
 
 export default router;

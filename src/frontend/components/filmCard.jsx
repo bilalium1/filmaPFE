@@ -42,7 +42,7 @@ function FilmCard({film = []}){
     };
     
     return (
-        <div onClick={toPage} className="flex-none relative justify-center bg-stone-800/100 lg:h-85 lg:w-60 w-30 h-50 rounded-xl overflow-hidden border-t-2 shadow-lg hover:w-150 transition-all opacity-50 hover:opacity-100 duration-300">
+        <div onClick={toPage} className="flex-none relative justify-center bg-stone-800/100 lg:h-85 lg:w-60 w-30 h-50 rounded-xl overflow-hidden border-t-2 shadow-lg hover:w-150 transition-all opacity-80 saturate-50 hover:opacity-100 hover:saturate-100 duration-300">
             <p className={`absolute w-14 p-0.5 lg:h-10 h-5 left-2 top-2 z-4 ${ (film.vote_average > 8) ? "bg-emerald-500/90" : "bg-amber-300/70"} lg:text-sm text-[10px] leading-tight rounded-md uppercase font-normal`}>{`★ ${film.vote_average.toFixed(1)}`}<br/>{`${(film.vote_average > 8)? "top" : "bien"}`}</p>
             <p className='absolute w-20 px-2 pt-0.5 h-10 left-38 top-2 z-4 text-sm bg-stone-950/50 rounded-md leading-tight font-normal'>{`▧ ${film.media_type.toUpperCase()}`}<br/>DRAME</p>
             <div className='absolute to-20% h-full w-60 z-2'/>

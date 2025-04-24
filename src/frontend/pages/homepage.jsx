@@ -56,16 +56,32 @@ function Homepage() {
       try {
         setLoading(true);
         // Fetch first 3 pages concurrently
-        const [page1, page2, page3] = await Promise.all([
+        const [page1, page2, page3, page4, page5, page6, page7, page8, page9, page10] = await Promise.all([
           fetchMedias(1),
           fetchMedias(2),
-          fetchMedias(3)
+          fetchMedias(3),
+          fetchMedias(4),
+          fetchMedias(5),
+          fetchMedias(6),
+          fetchMedias(7),
+          fetchMedias(8),
+          fetchMedias(9),
+          fetchMedias(10)
         ]);
         
         // Combine all results
-        const allData = [...page1, ...page2, ...page3];
+        const allData = [...page1, ...page2, ...page3, ...page4, ...page5
+          ,...page6, ...page7, ...page8, ...page9, ...page10 
+        ];
+
+        allData.sort((a, b) => {
+          const dateA = a.release_date || a.first_air_date;
+          const dateB = b.release_date || b.first_air_date;
+          return new Date(dateB) - new Date(dateA);
+        });
+
         setMedias(allData);
-        setcPage(3); // Set current page to 3 since we've loaded up to page 3
+        setcPage(5); // Set current page to 3 since we've loaded up to page 3
       } catch (error) {
         console.error("Error loading initial data:", error);
       } finally {
@@ -93,19 +109,20 @@ function Homepage() {
     { title: "Marvel", genre: null, studio: "Marvel Studios" }
   ], []);
 
-  console.log(user?.email);
-
+  console.log(medias);
+  console.log(medias.slice(0,10));
   
   return (
     <div className='w-full h-full flex-col'>
-      <h3>LE FRONTEND N'EST PAS ENCORE FINI</h3>
+      
       {loading && <div className='fixed top-0 w-dvw h-dvh bg-stone-800/50 backdrop-blur-xl z-5 justify-center items-center'>
         <p className='relative w-full text-4xl font-bold uppercase text-center top-100 animate-pulse'>Une moment...</p>
         <div className='relative top-120 m-auto w-25 h-25 border-t-2 animate-spin rounded-full'></div>
       </div>} 
-      <Tete/> 
-      
+
       <NavBar medias={medias}/>
+
+      {medias.length > 0 && <Tete medias={medias.slice(0,200)} />}
 
       {/* Category Sections - Only show for popular tab */}
       {categories.map(cat => (

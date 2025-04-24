@@ -8,7 +8,7 @@ const Footer = () => (
       <div className="flex flex-col items-start md:items-start gap-3">
         {/* Logo Placeholder */}
         <div className="flex items-center gap-2 mb-1">
-          <span className="inline-block w-8 h-8 bg-red-600 rounded-full flex items-center justify-center font-bold text-white text-xl shadow">
+          <span className="inline-block w-8 h-8 bg-red-600 rounded-full items-center justify-center font-bold text-white text-xl shadow">
             F
           </span>
           <span className="text-xl font-bold tracking-wide">FIL.MA</span>

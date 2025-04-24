@@ -41,9 +41,9 @@ const TvPage = () => {
 
   const seasons = {};
   const eps = {};
-  show.seasons.forEach((seasonn, index) => {
-  const seasonNumber = index + 1;
-  seasons[`Season ${seasonNumber}`] = `/series/${show.id}/${seasonNumber}/1`;
+  show.seasons.forEach((_, index) => {
+    const seasonNumber = index + 1;
+    seasons[`Season ${seasonNumber}`] = `/series/${show.id}/${seasonNumber}/1`;
 
 
   let ep = 0; // Global counter for all episodes

@@ -7,8 +7,8 @@ import MoviePage from './pages/moviepage.jsx';
 import TvPage from './pages/tvpage.jsx';
 import Auth from './pages/authpage.jsx';
 import { AuthProvider } from './context/AuthContext';
-import ChatBot from '.components/ChatBot.jsx';
-import Footer from '.pages/Footer.jsx';
+import ChatBot from './components/ChatBot.jsx';
+import Footer from './pages/Footer.jsx';
 
 
 
@@ -25,8 +25,8 @@ function App() {
               <Route path="/auth" element={<Auth/>}/>
             </Routes>
           </Router>
-          <Footer />    
-          <ChatBot />   
+          <Footer />     
+          <ChatBot />
         </div>
       </AuthProvider>
     );

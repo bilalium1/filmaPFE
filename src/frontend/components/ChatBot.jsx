@@ -1,8 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import { Bot, Send, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { toast } from "sonner";
 
 const predefinedResponses = {
@@ -44,13 +40,14 @@ const predefinedResponses = {
   ],
   "help": [
     "Would you like to search for movies or get recommendations?",
-    "Tell me what you're into, and I’ll help you out!"
+    "Tell me what you're into, and I'll help you out!"
   ],
   "aide": [
     "Souhaitez-vous des recommandations ou chercher un film précis ?",
     "Dites-moi ce que vous aimez et je m'en occupe !"
   ]
 };
+
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
@@ -130,22 +127,25 @@ const ChatBot = () => {
 
   return (
     <>
-      <Button
+      <button
         onClick={toggleChat}
         className={`fixed bottom-6 right-6 rounded-full w-14 h-14 flex items-center justify-center shadow-lg z-50 transition-all ${
           isOpen ? "bg-gray-700" : "bg-red-600"
         } hover:opacity-90`}
-        size="icon"
       >
-        {isOpen ? <X className="w-6 h-6" /> : <Bot className="w-6 h-6" />}
-      </Button>
+        {isOpen ? (
+          <span className="text-white text-xl">×</span>
+        ) : (
+          <span className="text-white text-xl">🤖</span>
+        )}
+      </button>
 
       {isOpen && (
-        <Card className="fixed bottom-24 right-6 w-80 md:w-96 h-96 flex flex-col z-40 border border-gray-700 bg-neutral-900">
-          <CardHeader className="bg-red-600 text-white py-3 px-4 text-center font-semibold">
+        <div className="fixed bottom-24 right-6 w-80 md:w-96 h-96 flex flex-col z-40 border border-gray-700 bg-neutral-900 rounded-lg">
+          <div className="bg-red-600 text-white py-3 px-4 text-center font-semibold rounded-t-lg">
             Assistant NetStream 🎥
-          </CardHeader>
-          <CardContent className="flex-grow overflow-y-auto p-3 space-y-4 scrollbar-thin">
+          </div>
+          <div className="flex-grow overflow-y-auto p-3 space-y-4 scrollbar-thin">
             {messages.map((msg) => (
               <div
                 key={msg.id}
@@ -163,27 +163,26 @@ const ChatBot = () => {
               </div>
             ))}
             <div ref={messagesEndRef} />
-          </CardContent>
-          <CardFooter className="p-3 border-t border-gray-700 bg-neutral-950">
+          </div>
+          <div className="p-3 border-t border-gray-700 bg-neutral-950 rounded-b-lg">
             <div className="flex w-full items-center gap-2">
-              <Input
+              <input
                 type="text"
                 placeholder="Écrivez votre message..."
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyDown={handleKeyDown}
-                className="flex-grow bg-gray-800 border-gray-600 text-white"
+                className="flex-grow bg-gray-800 border-gray-600 text-white px-3 py-2 rounded border"
               />
-              <Button
+              <button
                 onClick={handleSendMessage}
-                size="icon"
-                className="bg-red-600 hover:bg-red-700"
+                className="bg-red-600 hover:bg-red-700 text-white p-2 rounded"
               >
-                <Send className="h-4 w-4" />
-              </Button>
+                <span>→</span>
+              </button>
             </div>
-          </CardFooter>
-        </Card>
+          </div>
+        </div>
       )}
     </>
   );

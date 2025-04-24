@@ -119,7 +119,7 @@ const ChatBot = () => {
   const toggleChat = () => {
     setIsOpen(!isOpen);
     if (!isOpen) {
-      toast("🤖 Assistant NetStream activé", {
+      toast("🤖 Assistant FIL.MA activé", {
         description: "Comment puis-je vous aider aujourd'hui ?",
       });
     }
@@ -143,7 +143,7 @@ const ChatBot = () => {
       {isOpen && (
         <div className="fixed bottom-24 right-6 w-80 md:w-96 h-96 flex flex-col z-40 border border-gray-700 bg-neutral-900 rounded-lg">
           <div className="bg-red-600 text-white py-3 px-4 text-center font-semibold rounded-t-lg">
-            Assistant NetStream 🎥
+            Assistant FIL.MA 🎥
           </div>
           <div className="flex-grow overflow-y-auto p-3 space-y-4 scrollbar-thin">
             {messages.map((msg) => (

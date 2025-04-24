@@ -51,7 +51,6 @@ const predefinedResponses = {
     "Dites-moi ce que vous aimez et je m'en occupe !"
   ]
 };
-
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([

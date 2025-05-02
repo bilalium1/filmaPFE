@@ -1,6 +1,12 @@
 
 import pic from '../assets/dunepost.jpg'
 import { useNavigate } from 'react-router-dom';
+import { addFavorite, isFavorite, removeFavorite } from '../api_services/favorite.service'
+import { useContext, useEffect, useState } from 'react';
+import { useStore} from '../utils/store.js';
+import { AuthContext } from '../context/AuthContext.jsx'; 
+
+
 // PICTURE PREFIX : https://image.tmdb.org/t/p/original/
 
 /* EXAMPLE : 
@@ -28,6 +34,47 @@ import { useNavigate } from 'react-router-dom';
 */
 
 function FilmCard({film = []}){
+
+  const [ sauve, setSauve ] = useState(false);
+  const { user, isLoading } = useContext(AuthContext);
+
+  const fireSig = useStore(state => state.fireSig);
+
+  const get_isFav = async (movie_id, mediaType) => {
+    try {
+      const is_fave = await isFavorite(user?.id, film?.id, film?.media_type);
+      setSauve(is_fave)
+      } catch (err) {
+        console.log("err get fav : ", err);
+      }
+    }
+    
+  const favor = async () => {
+    try {
+        if (!sauve) {
+          setSauve(true)
+          await addFavorite(user.id, film?.id, film?.media_type);
+          console.log("added!");
+          fireSig();
+        }
+        } catch(err) {
+          console.log(" err add favor : ", err);
+        }
+      }
+        
+  const defavor = async () => {
+            try {
+                if (sauve){
+                    setSauve(false)
+                    await removeFavorite(user.id, film?.id, film?.media_type);
+                    console.log("removed!");
+                    fireSig();
+                }
+            } catch(err) {
+                console.log("error defavor", err);
+            }
+        }
+
     if (!film) return null;
 
     const navigate = useNavigate();
@@ -40,13 +87,17 @@ function FilmCard({film = []}){
         navigate(`/series/${film.id}/1/1`);
       }
     };
+
+    useEffect(() => {
+      get_isFav();
+    }, [])
     
     return (
-        <div onClick={toPage} className="flex-none relative justify-center bg-stone-800/100 lg:h-85 lg:w-60 w-30 h-50 rounded-xl overflow-hidden border-t-2 shadow-lg hover:w-150 transition-all opacity-50 hover:opacity-100 duration-300">
+        <div className="flex-none relative justify-center bg-stone-800/100 lg:h-85 lg:w-60 w-30 h-50 rounded-xl overflow-hidden border-t-2 shadow-lg hover:w-150 transition-all opacity-80 saturate-50 hover:opacity-100 hover:saturate-100 duration-300">
             <p className={`absolute w-14 p-0.5 lg:h-10 h-5 left-2 top-2 z-4 ${ (film.vote_average > 8) ? "bg-emerald-500/90" : "bg-amber-300/70"} lg:text-sm text-[10px] leading-tight rounded-md uppercase font-normal`}>{`★ ${film.vote_average.toFixed(1)}`}<br/>{`${(film.vote_average > 8)? "top" : "bien"}`}</p>
             <p className='absolute w-20 px-2 pt-0.5 h-10 left-38 top-2 z-4 text-sm bg-stone-950/50 rounded-md leading-tight font-normal'>{`▧ ${film.media_type.toUpperCase()}`}<br/>DRAME</p>
             <div className='absolute to-20% h-full w-60 z-2'/>
-            <img className='absolute left-0 flex duration-300 w-60 h-full object-cover saturate-80 hover:saturate-100 mask-fade-right z-1' src={`https://image.tmdb.org/t/p/original/${film.poster_path}`} alt="10"/>
+            <img onClick={toPage} className='absolute left-0 flex duration-300 w-60 h-full object-cover saturate-80 hover:saturate-100 mask-fade-right z-1' src={`https://image.tmdb.org/t/p/original/${film.poster_path}`} alt="10"/>
             <img className='absolute left-0 flex duration-300 w-full h-full z-0 object-cover opacity-60 ' src={`https://image.tmdb.org/t/p/original/${film.backdrop_path}`} alt="10"/>
             <p className='absolute left-62.5 top-2 p-1.5 font-normal uppercase text-xl text-center w-85 h-10 whitespace-normal rounded-lg backdrop-blur-sm bg-stone-950/50'>{film.title} {film.name}</p>
             <p className='absolute w-90 px-2 text-left opacity-80 whitespace-normal h-1/10 left-60 top-2/10 text-xs'> ➤ {film.overview}</p>
@@ -55,7 +106,12 @@ function FilmCard({film = []}){
                   className="relative bottom-3 shadow-md rounded-lg ml-5 backdrop-blur-sm bg-stone-950/50 w-65 h-10 text-white hover:bg-white/100 transition-all cursor-pointer hover:text-stone-700 z-4">
                     ►
                 </button>
-                <button className="relative bottom-3 shadow-md rounded-lg backdrop-blur-sm bg-pink-600/80 w-10 h-10 text-white hover:bg-white/100 transition-all cursor-pointer hover:text-pink-500 z-4">❤︎</button>
+                <button 
+                  onClick={() => {(!sauve) ? favor() : defavor()}} 
+                  className={`${sauve ? "bg-pink-600/50" : "bg-pink-500"} lg:w-10 w-6 backdrop-blur-lg lg:h-10 h-6 lg:rounded-lg rounded-sm cursor-pointer text-stone-100 lg:text-md text-xs p-1 font-bold hover:bg-pink-500 active:bottom-2 hover:text-stone-800 transition-all`}
+                >
+                  {sauve ? "✖" : "❤"}
+                </button>
             </div>
         </div>
     ) 

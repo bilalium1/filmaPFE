@@ -3,15 +3,15 @@ import Favorite from "../models/favorite.model.js";
 // Ajouter un film aux favoris
 export const addFavorite = async (req, res) => {
     try {
-        const { id_user, id_film } = req.body;
+        const { id_user, id_film, media_type } = req.body;
 
         // Vérifie si le favori existe déjà pour éviter les doublons
-        const existing = await Favorite.findOne({ id_user, id_film });
+        const existing = await Favorite.findOne({ id_user, id_film, media_type });
         if (existing) {
             return res.status(400).json({ error: "Ce film est déjà dans les favoris." });
         }
 
-        const favorite = new Favorite({ id_user, id_film });
+        const favorite = new Favorite({ id_user, id_film, media_type });
         await favorite.save();
         res.status(201).json(favorite);
     } catch (err) {
@@ -42,12 +42,35 @@ export const getFavoritesByUser = async (req, res) => {
 // Supprimer un favori (par user et film)
 export const removeFavorite = async (req, res) => {
     try {
-        const { id_user, id_film } = req.body;
-        const favorite = await Favorite.findOneAndDelete({ id_user, id_film });
-
-        if (!favorite) return res.status(404).json({ error: "Favori non trouvé." });
-        res.json({ message: "Favori supprimé avec succès." });
+      const { id_user, id_film, media_type } = req.body;
+  
+      // Validate required fields
+      if (!id_user || !id_film || !media_type) {
+        return res.status(400).json({ 
+          error: "Les champs id_user et id_film sont requis" 
+        });
+      }
+  
+      // Check if favorite exists first
+      const exists = await Favorite.findOne({ id_user, id_film, media_type });
+      if (!exists) {
+        return res.status(404).json({ 
+          error: "Favori non trouvé",
+          details: `User: ${id_user}, Film: ${id_film}`
+        });
+      }
+  
+      // Delete the favorite
+      await Favorite.findOneAndDelete({ id_user, id_film, media_type });
+      
+      // Successful deletion (204 No Content)
+      res.status(204).end();
+      
     } catch (err) {
-        res.status(400).json({ error: err.message });
+      console.error("Delete error:", err);
+      res.status(500).json({ 
+        error: "Erreur serveur",
+        details: err.message 
+      });
     }
-};
+  };

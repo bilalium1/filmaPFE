@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Doto:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Boldonse&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Honk&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&display=swap');
 
 @import "tailwindcss";
 
@@ -72,6 +73,10 @@
 
   .font-chakra {
     font-family: "Chakra Petch", sans-serif;
+  }
+  
+  .font-widegoth {
+    font-family: "Special Gothic Expanded One", sans-serif;
   }
 }
 

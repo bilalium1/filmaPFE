@@ -129,21 +129,21 @@ const ChatBot = () => {
     <>
       <button
         onClick={toggleChat}
-        className={`fixed bottom-6 right-6 rounded-full w-14 h-14 flex items-center justify-center shadow-lg z-50 transition-all ${
-          isOpen ? "bg-gray-700" : "bg-red-600"
-        } hover:opacity-90`}
+        className={`fixed bottom-6 right-6 rounded-full border-t-2 cursor-pointer backdrop-blur-sm size-12 flex items-center justify-center shadow-lg z-50 transition-all ${
+          isOpen ? "bg-gray-700" : "bg-linear-to-b from-red-600/80 to-pink-500/50"
+        } active:bottom-4 hover:bottom-5`}
       >
         {isOpen ? (
           <span className="text-white text-xl">×</span>
         ) : (
-          <span className="text-white text-xl">🤖</span>
+          <span className="text-white text-2xl">✦</span>
         )}
       </button>
 
       {isOpen && (
-        <div className="fixed bottom-24 right-6 w-80 md:w-96 h-96 flex flex-col z-40 border border-gray-700 bg-neutral-900 rounded-lg">
-          <div className="bg-red-600 text-white py-3 px-4 text-center font-semibold rounded-t-lg">
-            Assistant FIL.MA 🎥
+        <div className="fixed bottom-24 right-6 w-80 md:w-96 h-96 flex flex-col z-40 bg-stone-900/50 backdrop-blur-sm rounded-lg">
+          <div className="bg-linear-to-br from-red-600/50 to-pink-500/20 text-white py-3 px-4 text-center font-light rounded-t-lg">
+            FIL.MA CHAT
           </div>
           <div className="flex-grow overflow-y-auto p-3 space-y-4 scrollbar-thin">
             {messages.map((msg) => (
@@ -154,8 +154,8 @@ const ChatBot = () => {
                 <div
                   className={`max-w-[80%] px-4 py-2 rounded-xl text-sm whitespace-pre-line ${
                     msg.type === "user"
-                      ? "bg-red-600 text-white"
-                      : "bg-gray-700 text-gray-100"
+                      ? "bg-linear-to-b from-red-600/80 to-pink-500/50 text-white"
+                      : "bg-linear-to-t from-red-600/50 to-pink-500/20 text-gray-100"
                   }`}
                 >
                   {msg.content}

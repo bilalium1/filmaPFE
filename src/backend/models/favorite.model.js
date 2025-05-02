@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
 
 const favoriteSchema = new mongoose.Schema({
-    id_user: { type: Number, required : true},
+    id_user: { type: mongoose.Schema.Types.ObjectId, ref:"User", required : true},
     id_film: { type: Number, required : true},
+    media_type: {type: String, required : true},
 }, {
     timestamps: true
 });

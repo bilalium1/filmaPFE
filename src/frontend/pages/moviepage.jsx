@@ -38,8 +38,6 @@ const FilmPage = () => {
   if (error) return <div className="error-message">Error: {error}</div>;
   if (!film) return <div>Film not found</div>;
 
-  console.log(film.title)
-
    const buttoncss="px-4 mx-1 my-auto h-12 rounded-md text-stone-100 font-light tracking-wider hover:text-stone-950 transition-all b ease-out hover:px-6 hover:text-lg hover:backdrop-brightness-400 hover:font-black cursor-pointer"
 
   return (

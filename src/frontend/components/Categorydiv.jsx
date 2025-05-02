@@ -26,25 +26,29 @@ function Category({ title, genre ,studio, medias = [] , onScrollEnd}) {
 
   let filterMedia;
 
-  if (genre==0) {
-    filterMedia = medias
-      .filter(media => media.vote_average > 6)
-      .filter(media => media.adult === false)
-      .filter(media => media.original_language === "en")
-      .filter(media => !media.genre_ids?.includes(10751))
-      .filter(media => !media.genre_ids?.includes(10762))
-      .filter(media => !media.genre_ids?.includes(10763))
-      .filter(media => !media.genre_ids?.includes(10764))
-      .filter(media => !media.genre_ids?.includes(10766))
-      .filter(media => !media.genre_ids?.includes(10767))
-      .filter(media => !media.genre_ids?.includes(10768))
-      .filter(media => !media.genre_ids?.includes(10749))
-      .filter(media => !media.genre_ids.includes(35))
+  if (title !== "Favorites") {
+    if (genre==0) {
+      filterMedia = medias
+        .filter(media => media.vote_average > 6)
+        .filter(media => media.adult === false)
+        .filter(media => media.original_language === "en")
+        .filter(media => !media.genre_ids?.includes(10751))
+        .filter(media => !media.genre_ids?.includes(10762))
+        .filter(media => !media.genre_ids?.includes(10763))
+        .filter(media => !media.genre_ids?.includes(10764))
+        .filter(media => !media.genre_ids?.includes(10766))
+        .filter(media => !media.genre_ids?.includes(10767))
+        .filter(media => !media.genre_ids?.includes(10768))
+        .filter(media => !media.genre_ids?.includes(10749))
+        .filter(media => !media.genre_ids.includes(35))
+    } else {
+      filterMedia = medias
+      .filter(media => media.genre_ids?.includes(genre)) // Action gesnre ID
+      .filter(media => media.vote_average > 6.5)
+      .filter(media => media.adult === false);
+    }
   } else {
-    filterMedia = medias
-    .filter(media => media.genre_ids?.includes(genre)) // Action gesnre ID
-    .filter(media => media.vote_average > 6.5)
-    .filter(media => media.adult === false);
+    filterMedia=medias;
   }
  
   // Filter films based on your criteria
@@ -70,7 +74,7 @@ function Category({ title, genre ,studio, medias = [] , onScrollEnd}) {
         </button>
 
         {filterMedia.map(media => {
-          return <FilmCard key={media.id} film={media} />;
+          return <FilmCard key={media.id} film={media}/>;
         })}
       </div>
     </div>

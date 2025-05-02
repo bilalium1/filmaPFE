@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.post("/", addFavorite); // ajouter un favori
 router.get("/", getAllFavorites); // tous les favoris
-router.get("/:id_user", getFavoritesByUser); // favoris d'un utilisateur
+router.get("/user/:id_user", getFavoritesByUser); // favoris d'un utilisateur
 router.delete("/", removeFavorite); // supprimer un favori (via body)
 
 export default router;

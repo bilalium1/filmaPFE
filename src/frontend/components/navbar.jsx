@@ -46,7 +46,7 @@ function NavBar({medias}){
             <DropMenu title={"Theatres"} elements={theatres} css={buttoncss} />
 
             <FaSearch onClick={() => setSopen(!s_open)} className='hover:backdrop-brightness-150 size-9 rounded-sm p-3 cursor-pointer my-auto'/>
-            { user && (<CiLogout onClick={logout} className='absolute right-2 top-2 hover:bg-red-400 size-8 rounded-sm p-2 bg-red-400/50 cursor-pointer my-auto'/>)}
+            { user && (<CiLogout onClick={() => {logout(); navigate('/')}} className='absolute right-2 top-2 hover:bg-red-400 size-8 rounded-sm p-2 bg-red-400/50 cursor-pointer my-auto'/>)}
 
             <SearchBar css={ s_open ? "opacity-100 mt-15 blur-0" : "opacity-0 mt-10 pointer-events-none"}/>
 

@@ -1,16 +1,67 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { addFavorite, isFavorite, removeFavorite } from '../api_services/favorite.service'
+import { AuthContext } from '../context/AuthContext';
+import { useStore} from '../utils/store.js';
 
-function Tete({ medias: originalMedias }) {
+function Tete({ medias: originalMedias}) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [direction, setDirection] = useState(1); // 1 for forward, -1 for backward
     const [sauve, setSauve] = useState(false);
     const [desc, setDesc] = useState(false);
+
+    const fireSig = useStore(state => state.fireSig);
+
+    const { user, isLoading } = useContext(AuthContext);
+
+    console.log("im the fucking tete", user?.id);
+    console.log("this is user", user?.username);
+
     const navigate = useNavigate();
 
+    // CHECK IS CURRENT MOVIE IS FAVORED
+    const get_isFav = async (movie_id, mediaType) => {
+        try {
+            if (!user) {
+                console.log("no user for favorites");
+            } else {
+                const is_fave = await isFavorite(user?.id, movie_id, mediaType);
+                setSauve(is_fave)
+            }
+        } catch (err) {
+            console.log("err get fav : ", err);
+        }
+    }
+
+    const favor = async (movie_id, mediaType) => {
+        try {
+            if (!sauve) {
+                setSauve(true)
+                await addFavorite(user.id, movie_id, mediaType);
+                console.log("added!");
+                fireSig();
+            }
+        } catch(err) {
+            console.log(" err add favor : ", err);
+        }
+    }
+    
+    const defavor = async (movie_id, mediaType) => {
+        try {
+            if (sauve){
+                setSauve(false)
+                await removeFavorite(user.id, movie_id, mediaType);
+                console.log("removed!");
+                fireSig();
+            }
+        } catch(err) {
+            console.log("error defavor", err);
+        }
+    }
+
     // Filter medias
-    const medias = originalMedias
+    const filterMedias = originalMedias
         ?.filter(media => media.vote_average > 7.5)
         ?.filter(media => media.adult === false)
         ?.filter(media => media.original_language === "en")
@@ -22,8 +73,12 @@ function Tete({ medias: originalMedias }) {
         ?.filter(media => !media.genre_ids?.includes(10767))
         ?.filter(media => !media.genre_ids?.includes(10768))
         ?.filter(media => !media.genre_ids?.includes(10749))
+        ?.filter(media => !media.genre_ids?.includes(27))
+        ?.filter(media => !media.genre_ids?.includes(53))
         ?.filter(media => !media.genre_ids?.includes(35)) || [];
 
+    const medias = filterMedias.slice(0,20);
+    
     // Auto-cycling effect with directional awareness
     useEffect(() => {
         if (medias.length <= 1) return;
@@ -31,10 +86,14 @@ function Tete({ medias: originalMedias }) {
         const interval = setInterval(() => {
             setDirection(1);
             setCurrentIndex((prev) => (prev + 1) % medias.length);
-        }, 6000);
+        }, 10000);
 
         return () => clearInterval(interval);
     }, [medias.length]);
+
+    useEffect(() => {
+        get_isFav(medias[currentIndex]?.id, medias[currentIndex]?.media_type);
+    }, [currentIndex, favor, defavor, user])
 
     const navigateTo = (newIndex) => {
         const newDirection = newIndex > currentIndex ? 1 : -1;
@@ -64,7 +123,7 @@ function Tete({ medias: originalMedias }) {
             {/* Background Blur */}
             <motion.img 
                 src={`https://image.tmdb.org/t/p/original/${media?.backdrop_path}`} 
-                className="absolute -top-10 inset-x-0 blur-[50px] size-[200%] object-cover saturate-80 -z-1"
+                className="absolute -top-20 inset-x-0 blur-[50px] size-[200%] object-cover saturate-80 -z-1"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1 }}
@@ -95,19 +154,19 @@ function Tete({ medias: originalMedias }) {
                 <motion.div
                     key={media.id}
                     custom={direction}
-                    initial={{ opacity: 0, x: direction * 100 }}
+                    initial={{ opacity: 0, x: direction * 20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: direction * -100 }}
-                    transition={{ duration: 0.2, ease: "easeInOut" }}
+                    exit={{ opacity: 0, x: direction * -20 }}
+                    transition={{ duration: 0.8, ease: "easeInOutExpo" }}
                     className="relative mx-auto flex w-95/100 h-full border-t-[2px] border-stone-100/50 rounded-md overflow-hidden [box-shadow:0px_5px_10px_0px_rgba(0,0,0,0.5)]"
                 >
                     {/* Main Image with Ken Burns effect */}
                     <motion.img 
                         src={`https://image.tmdb.org/t/p/original/${media?.backdrop_path}`}
                         className="absolute w-full h-full object-cover"
-                        initial={{ scale: 1.5 }}
+                        initial={{ scale: 1.2 }}
                         animate={{ scale: 1 }}
-                        transition={{ duration: 3, ease: [0.16, 1, 0.3, 1] }}
+                        transition={{ duration: 6, ease: [0.16, 1, 0.3, 1] }}
                         alt={media?.title || media?.name}
                     />
 
@@ -121,7 +180,7 @@ function Tete({ medias: originalMedias }) {
                         animate={{ y: 0 }}
                         transition={{ delay: 0.3 }}
                     >
-                        <p className='relative p-1.50 tracking-[1px] text-4xl lg:text-6xl bg-stone-950/50 [box-shadow:0px_10px_20px_0px_rgba(0,0,0,0.3)] lg:px-4 px-2 text-left w-auto max-w-190 lg:h-10 h-6 lg:rounded-lg rounded-sm backdrop-blur-lg text-white z-3 font-chakra font-bold uppercase left-3'>
+                        <p className='relative pt-2 p-1.50 tracking-[1px] text-4xl lg:text-6xl bg-stone-950/50 [box-shadow:0px_10px_20px_0px_rgba(0,0,0,0.3)] lg:px-4 px-2 text-left w-auto max-w-6/10 lg:h-10 h-6 lg:rounded-lg rounded-sm backdrop-blur-lg text-white z-3 font-widegoth font-bold uppercase left-3'>
                             {media?.title || media?.name}
                         </p>
                         <p className='relative lg:p-1.5 p-1 tracking-wide text-xs lg:text-lg bg-stone-950/50 lg:px-4 px-2 text-left w-auto lg:h-10 h-6 lg:rounded-lg rounded-sm backdrop-blur-lg text-white z-3 font-light uppercase left-3'>
@@ -130,7 +189,7 @@ function Tete({ medias: originalMedias }) {
                         <p className='relative lg:p-1.5 p-1 tracking-wide text-xs lg:text-lg bg-amber-300/50 lg:px-4 px-2 text-left w-auto lg:h-10 h-6 slg:rounded-lg rounded-sm backdrop-blur-lg text-white z-3 font-light uppercase left-3'>
                             {`★ ${media?.vote_average?.toFixed(1)}`}
                         </p>
-                        <p className={`absolute ${sauve ? "opacity-100" : "opacity-0"} lg:p-1.5 p-1 tracking-wide text-xs lg:text-lg bg-pink-400/80 lg:px-4 px-2 text-left w-auto lg:h-10 h-6 lg:rounded-lg rounded-sm backdrop-blur-lg text-white z-3 font-light uppercase right-3 transition-all`}>
+                        <p className={`absolute ${sauve ? "opacity-100" : "opacity-0"} lg:p-1.5 p-1 tracking-wide text-xs lg:text-lg bg-linear-to-b from-pink-400/80 to-red-500/50 lg:px-4 px-2 text-left w-auto lg:h-10 h-6 lg:rounded-lg rounded-sm backdrop-blur-lg text-white z-3 font-light uppercase right-3 transition-all`}>
                             Favorite
                         </p>
                     </motion.div>
@@ -149,7 +208,7 @@ function Tete({ medias: originalMedias }) {
                             ►
                         </button>
                         <button 
-                            onClick={() => setSauve(!sauve)} 
+                            onClick={() => {(!sauve) ? favor(media.id, media.media_type) : defavor(media.id, media.media_type)}} 
                             className={`${sauve ? "bg-pink-600/50" : "bg-pink-500"} lg:w-10 w-6 backdrop-blur-lg lg:h-10 h-6 lg:rounded-lg rounded-sm cursor-pointer text-stone-100 lg:text-md text-xs p-1 font-bold hover:bg-pink-500 active:bottom-2 hover:text-stone-800 transition-all`}
                         >
                             {sauve ? "✖" : "❤"}
@@ -192,7 +251,7 @@ function Tete({ medias: originalMedias }) {
                         <motion.button
                             key={index}
                             onClick={() => navigateTo(index)}
-                            className={`w-3 h-3 rounded-full transition-all ${index === currentIndex ? 'bg-white' : 'bg-white/50 hover:bg-white/80'}`}
+                            className={`size-[5px] rounded-sm transition-all ${index === currentIndex ? 'bg-white' : 'bg-white/50 hover:bg-white/80'}`}
                             whileHover={{ scale: 1.2 }}
                             animate={{
                                 width: index === currentIndex ? 24 : 12

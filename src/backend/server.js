@@ -14,7 +14,10 @@ const app = express();
 
 // pour accepter JSON dans le DB middleware
 app.use(express.json())
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173',  // <-- your frontend URL
+    credentials: true  // if you're using cookies or auth headers
+}));
 
 //app.use("/api/films", filmRoutes);
 app.use("/api/auth", authRoutes);

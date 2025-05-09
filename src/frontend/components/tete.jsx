@@ -62,7 +62,7 @@ function Tete({ medias: originalMedias}) {
 
     // Filter medias
     const filterMedias = originalMedias
-        ?.filter(media => media.vote_average > 7.5)
+        ?.filter(media => media.vote_average > 6.6)
         ?.filter(media => media.adult === false)
         ?.filter(media => media.original_language === "en")
         ?.filter(media => !media.genre_ids?.includes(10751))
@@ -180,17 +180,17 @@ function Tete({ medias: originalMedias}) {
                         animate={{ y: 0 }}
                         transition={{ delay: 0.3 }}
                     >
-                        <p className='relative pt-2 p-1.50 tracking-[1px] text-4xl lg:text-6xl bg-stone-950/50 [box-shadow:0px_10px_20px_0px_rgba(0,0,0,0.3)] lg:px-4 px-2 text-left w-auto max-w-6/10 lg:h-10 h-6 lg:rounded-lg rounded-sm backdrop-blur-lg text-white z-3 font-widegoth font-bold uppercase left-3'>
-                            {media?.title || media?.name}
+                        <p className={`relative pt-2 px-6 break-words whitespace-normal text-4xl lg:text-6xl shadow-sm text-left w-auto max-w-[75%] h-auto text-white lg:rounded-lg rounded-sm backdrop-blur-2xl ${media?.vote_average >= 8 ? "bg-linear-to-r from-emerald-500/50 to-stone-950/50" : "bg-stone-950/50"} z-3 font-mont font-extralight uppercase left-3`}>
+                            {media?.vote_average >= 8 ? "✸" : ""} {media?.title || media?.name}
                         </p>
                         <p className='relative lg:p-1.5 p-1 tracking-wide text-xs lg:text-lg bg-stone-950/50 lg:px-4 px-2 text-left w-auto lg:h-10 h-6 lg:rounded-lg rounded-sm backdrop-blur-lg text-white z-3 font-light uppercase left-3'>
                             ▧ {media?.media_type}
                         </p>
-                        <p className='relative lg:p-1.5 p-1 tracking-wide text-xs lg:text-lg bg-amber-300/50 lg:px-4 px-2 text-left w-auto lg:h-10 h-6 slg:rounded-lg rounded-sm backdrop-blur-lg text-white z-3 font-light uppercase left-3'>
+                        <p className={`relative lg:p-1.5 p-1 tracking-wide text-xs lg:text-lg ${media?.vote_average >= 8 ? "bg-emerald-500/50" : "bg-stone-800/50"} lg:px-4 px-2 text-left w-auto lg:h-10 h-6 slg:rounded-lg rounded-sm backdrop-blur-lg text-white z-3 font-light uppercase left-3`}>
                             {`★ ${media?.vote_average?.toFixed(1)}`}
                         </p>
-                        <p className={`absolute ${sauve ? "opacity-100" : "opacity-0"} lg:p-1.5 p-1 tracking-wide text-xs lg:text-lg bg-linear-to-b from-pink-400/80 to-red-500/50 lg:px-4 px-2 text-left w-auto lg:h-10 h-6 lg:rounded-lg rounded-sm backdrop-blur-lg text-white z-3 font-light uppercase right-3 transition-all`}>
-                            Favorite
+                        <p className={`absolute ${sauve ? "opacity-100" : "opacity-0"} tracking-wide text-md lg:text-2xl bg-pink-400/70 lg:w-10 p-1 w-6 lg:h-10 h-6 lg:rounded-lg rounded-sm backdrop-blur-lg text-white z-3 font-light text-center uppercase right-3 transition-all`}>
+                        ◉
                         </p>
                     </motion.div>
 

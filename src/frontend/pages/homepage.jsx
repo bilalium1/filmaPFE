@@ -160,7 +160,7 @@ function Homepage() {
         setcPage(12); // Set current page to 3 since we've loaded up to page 3
       } catch (error) {
         console.error("Error loading initial data:", error);
-        setMedias(offline_data);
+        setMedias(offline_data.data);
       } finally {
         setLoading(false);
       }
@@ -171,10 +171,10 @@ function Homepage() {
 
   useEffect(() => {
     user_Fav();
-  }, [user, medias, signal, totalPages, ])
+  }, [user, medias, signal, totalPages, isLoading, loading, cPage ])
 
   const categories = useMemo(() => [
-    { title: "Tendance 🔥 ", genre: 0 },
+    { title: "Tendance ▲", genre: 0 },
     { title: "Action", genre: 28 },
     { title: "Action et Aventure", genre: 10759},
     { title: "Drame", genre: 18 },
@@ -208,7 +208,7 @@ function Homepage() {
       {medias.length > 0 && <Tete medias={medias.slice(0,280)} />}
 
       {/* Category Sections - Only show for popular tab */}
-      {ufaves.length > 0 && (<CategoryDiv title={"Favorites"} medias={ufaves} genre={0}/>)}
+      {ufaves.length > 0 && (<CategoryDiv title={"Favorites ★"} medias={ufaves} genre={0}/>)}
 
       {categories.map(cat => (
         <CategoryDiv 

@@ -4,6 +4,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Boldonse&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Honk&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Climate+Crisis&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kumar+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Badeen+Display&display=swap');
+
 
 @import "tailwindcss";
 
@@ -63,6 +67,19 @@
     mask-image: linear-gradient(to right, black 70%, transparent 100%);
   }
 
+  .no-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .font-mont {
+    font-family: "Montserrat", sans-serif;
+  }
+
   .font-boldonse {
     font-family: "Boldonse", sans-serif;
   }
@@ -77,6 +94,22 @@
   
   .font-widegoth {
     font-family: "Special Gothic Expanded One", sans-serif;
+  }
+
+  .font-doto {
+    font-family: "Doto", sans-serif;
+  }
+
+  .font-climate {
+    font-family: "Climate Crisis", sans-serif;
+  }
+
+  .font-kumar {
+    font-family: "Kumar One", sans-serif;
+  }
+
+  .font-badeen {
+    font-family: "Badeen Display", sans-serif;
   }
 }
 

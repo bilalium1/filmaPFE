@@ -93,11 +93,11 @@ function FilmCard({film = []}){
     }, [])
     
     return (
-        <div className="flex-none relative justify-center bg-stone-800/100 lg:h-85 lg:w-60 w-30 h-50 rounded-xl overflow-hidden border-t-2 shadow-lg hover:w-150 transition-all opacity-80 saturate-50 hover:opacity-100 hover:saturate-100 duration-300">
+        <div className="flex-none relative justify-center bg-stone-800/100 lg:h-85 lg:w-60 w-30 h-50 rounded-lg overflow-hidden shadow-lg hover:w-150 hover:h-90 transition-all opacity-80 saturate-50 hover:opacity-100 hover:saturate-100 duration-300">
             <p className={`absolute w-14 p-0.5 lg:h-10 h-5 left-2 top-2 z-4 ${ (film.vote_average > 8) ? "bg-emerald-500/90" : "bg-amber-300/70"} lg:text-sm text-[10px] leading-tight rounded-md uppercase font-normal`}>{`★ ${film.vote_average.toFixed(1)}`}<br/>{`${(film.vote_average > 8)? "top" : "bien"}`}</p>
             <p className='absolute w-20 px-2 pt-0.5 h-10 left-38 top-2 z-4 text-sm bg-stone-950/50 rounded-md leading-tight font-normal'>{`▧ ${film.media_type.toUpperCase()}`}<br/>DRAME</p>
             <div className='absolute to-20% h-full w-60 z-2'/>
-            <img onClick={toPage} className='absolute left-0 flex duration-300 w-60 h-full object-cover saturate-80 hover:saturate-100 mask-fade-right z-1' src={`https://image.tmdb.org/t/p/original/${film.poster_path}`} alt="10"/>
+            <img className='absolute left-0 flex duration-300 w-60 h-full object-cover saturate-80 hover:saturate-100 mask-fade-right z-1 cursor-pointer' src={`https://image.tmdb.org/t/p/original/${film.poster_path}`} alt="10"/>
             <img className='absolute left-0 flex duration-300 w-full h-full z-0 object-cover opacity-60 ' src={`https://image.tmdb.org/t/p/original/${film.backdrop_path}`} alt="10"/>
             <p className='absolute left-62.5 top-2 p-1.5 font-normal uppercase text-xl text-center w-85 h-10 whitespace-normal rounded-lg backdrop-blur-sm bg-stone-950/50'>{film.title} {film.name}</p>
             <p className='absolute w-90 px-2 text-left opacity-80 whitespace-normal h-1/10 left-60 top-2/10 text-xs'> ➤ {film.overview}</p>
@@ -108,7 +108,7 @@ function FilmCard({film = []}){
                 </button>
                 <button 
                   onClick={() => {(!sauve) ? favor() : defavor()}} 
-                  className={`${sauve ? "bg-pink-600/50" : "bg-pink-500"} lg:w-10 w-6 backdrop-blur-lg lg:h-10 h-6 lg:rounded-lg rounded-sm cursor-pointer text-stone-100 lg:text-md text-xs p-1 font-bold hover:bg-pink-500 active:bottom-2 hover:text-stone-800 transition-all`}
+                  className={`${sauve ? "bg-pink-600/50" : "bg-pink-500"} relative bottom-3 lg:w-10 w-6 backdrop-blur-lg lg:h-10 h-6 lg:rounded-lg rounded-sm cursor-pointer text-stone-100 lg:text-md text-xs p-1 font-bold hover:bg-pink-500 active:bottom-2 hover:text-stone-800 transition-all`}
                 >
                   {sauve ? "✖" : "❤"}
                 </button>

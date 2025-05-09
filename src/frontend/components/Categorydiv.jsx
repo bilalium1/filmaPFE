@@ -26,7 +26,7 @@ function Category({ title, genre ,studio, medias = [] , onScrollEnd}) {
 
   let filterMedia;
 
-  if (title !== "Favorites") {
+  if (title !== "Favorites ★") {
     if (genre==0) {
       filterMedia = medias
         .filter(media => media.vote_average > 6)
@@ -54,21 +54,21 @@ function Category({ title, genre ,studio, medias = [] , onScrollEnd}) {
   // Filter films based on your criteria
 
   return (
-    <div className="relative bg-linear-to-b from-stone-900/90 to-stone-900/20 w-19/20 mx-auto my-5 lg:h-110 h-70 rounded-lg border-t-2">
-      <p className="text-left w-full pl-4 pt-4 mx-auto h-10 text-3xl font-extralight tracking-wider uppercase">{title}</p>
+    <div className="relative bg-linear-to-b from-stone-900/90 to-stone-900/20 w-19/20 mx-auto my-5 lg:h-120 h-80 rounded-lg border-2 border-white/50">
+      <p className="text-left w-full pl-4 py-4 mb-2 font-doto mx-auto h-10 text-3xl font-normalc tracking-wider uppercase">╰ {title}</p>
       <div
         id={`films-${title}`}
-        className="inline-flex gap-5 w-39/40 h-90 my-3 mx-auto overflow-x-auto scroll-none whitespace-nowrap scroll-smooth"
+        className="inline-flex gap-5 w-39/40 h-90 my-3 mx-auto overflow-x-auto scroll-none whitespace-nowrap scroll-smooth no-scroll"
       >
         <button
           onClick={() => scroll('right')}
-          className="absolute size-10 border-l-4 active:border-l-0 bg-stone-700/20 rounded-xl z-3 right-10 bottom-0 cursor-pointer hover:bg-stone-700 active:rotate-10 transition-all"
+          className="absolute size-10 border-l-4 active:border-l-0 bg-stone-700/20 rounded-md z-3 right-3 bottom-3 cursor-pointer hover:bg-stone-700 transition-all"
         >
           ➤
         </button>
         <button
           onClick={() => scroll('left')}
-          className="absolute size-10 border-l-4 active:border-l-0 bg-stone-700/20 rounded-xl z-3 left-10 bottom-0 cursor-pointer hover:bg-stone-700 active:rotate-170 rotate-180 transition-all"
+          className="absolute size-10 border-l-4 active:border-l-0 bg-stone-700/20 rounded-md z-3 left-3 bottom-3 cursor-pointer hover:bg-stone-700 rotate-180 transition-all"
         >
           ➤
         </button>

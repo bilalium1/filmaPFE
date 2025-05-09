@@ -6,6 +6,9 @@ export default defineConfig({
   base : '/',
   server: {
     host: true,
+    proxy:{
+      "/" : "http://localhost:1111"
+    }
   },
 
   optimizeDeps: {

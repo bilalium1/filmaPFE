@@ -119,7 +119,7 @@ const ChatBot = () => {
   const toggleChat = () => {
     setIsOpen(!isOpen);
     if (!isOpen) {
-      toast("🤖 Assistant NetStream activé", {
+      toast("🤖 Assistant FIL.MA activé", {
         description: "Comment puis-je vous aider aujourd'hui ?",
       });
     }

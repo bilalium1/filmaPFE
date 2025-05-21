@@ -1,12 +1,14 @@
 // src/pages/FilmPage.js
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import NavBar from '../components/navbar.jsx';
 import axios from 'axios';
 import Stream from '../components/MovieStream.jsx';
 import { useStore } from '../utils/store.js'
 
-const servers = [ 'UN', 'DEUX', 'TROIS', 'QUATRE']
+import { AuthContext } from '../context/AuthContext.jsx';
+
+const servers = [ 'UN', 'DEUX', 'TROIS', 'QUATRE', 'CINQUE']
 
 const FilmPage = () => {
   const { id } = useParams();
@@ -15,6 +17,8 @@ const FilmPage = () => {
   const [error, setError] = useState(null);
   const [srvr, setSrvr] = useState(0);
   const [sauve, setSauve] = useState(false);
+
+  const { user, isLoading } = useContext(AuthContext);
 
   const fireSig = useStore(state => state.fireSig);
   
@@ -34,7 +38,7 @@ const FilmPage = () => {
         setLoading(false);
       }
     };
-    
+
     fetchFilm();
   }, [id]);
 
@@ -72,6 +76,10 @@ const FilmPage = () => {
                 console.log("error defavor", err);
             }
   }
+
+  useEffect(() => {
+    get_isFav();
+  }, [favor, defavor, srvr, film, loading])
 
   if (loading) return <div className="loading-spinner">Loading...</div>;
   if (error) return <div className="error-message">Error: {error}</div>;

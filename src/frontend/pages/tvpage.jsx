@@ -6,7 +6,7 @@ import axios from 'axios';
 import TvStream from '../components/TvStream.jsx';
 import DropMenu from '../components/dropMenu.jsx';
 
-const servers = [ 'UN', 'DEUX', 'TROIS', 'QUATRE']
+const servers = [ 'UN', 'DEUX', 'TROIS', 'QUATRE', 'CINQUE']
 
 const TvPage = () => {
   const { id, season, episode } = useParams();

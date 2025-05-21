@@ -27,6 +27,9 @@ const Stream = ({videoID, server}) => {
 
             case 3:
               return `https://vidjoy.pro/embed/movie/${videoID}}`;
+            
+            case 4: 
+              return `https://www.2embed.cc/embed/${videoID}`;
           
             default:
               return `https://player.videasy.net/movie/${videoID}`;

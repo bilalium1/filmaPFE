@@ -9,8 +9,7 @@ import Auth from './pages/authpage.jsx';
 import { AuthProvider } from './context/AuthContext';
 import ChatBot from './components/ChatBot.jsx';
 import Footer from './pages/Footer.jsx';
-
-
+import TheaterPage from './pages/theaterpage.jsx'
 
 function App() {
     return (
@@ -23,6 +22,7 @@ function App() {
               <Route path="/films/:id" element={<MoviePage />}/>
               <Route path="/series/:id/:season/:episode" element={<TvPage />}/>
               <Route path="/auth" element={<Auth/>}/>
+              <Route path="/theatres" element={<TheaterPage/>}/>
             </Routes>
           </Router>
           <Footer />     

@@ -3,8 +3,15 @@ import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import NavBar from '../components/navbar.jsx';
 import axios from 'axios';
+import CommentSection from '../components/Commentaire.jsx';
 import Stream from '../components/MovieStream.jsx';
 import { useStore } from '../utils/store.js'
+import {
+  createComment,
+  getAllComments,
+  getCommentsByFilmId,
+  deleteComment,
+} from '../api_services/comment.service.js';
 
 import { AuthContext } from '../context/AuthContext.jsx';
 
@@ -110,9 +117,11 @@ const FilmPage = () => {
 
             </div>
             <p className='absolute w-20 h-10 rounded-lg left-10 text-2xl font-bold p-1 top-5 bg-amber-300/50 backdrop-blur-sm z-3'>{`★ ${film.vote_average.toFixed(1)}`}</p>
+            
             <img src={`https://image.tmdb.org/t/p/original/${film.backdrop_path}`} className='absolute top-0 w-full h-150 object-cover opacity-80 -z-1 mask-fade-bottom'/>
             <img src={`https://image.tmdb.org/t/p/original/${film.poster_path}`} className='absolute top-150 w-full h-full object-cover opacity-20 blur-sm -z-1 mask-fade-top'/>
         </div>
+        
 
         <div className='absolute h-full w-29/30 top-180 left-1/2 -translate-x-1/2'>
           <Stream videoID={film.id} server={srvr}/>
@@ -126,6 +135,8 @@ const FilmPage = () => {
               {server}
             </button>
           ))}
+
+          <CommentSection/>
         </div>
     </div>
   );

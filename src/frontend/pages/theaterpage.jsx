@@ -17,7 +17,6 @@ const TheaterPage = () => {
                 <div className="bg-stone-950/80 border-b-1 w-100 h-100 ml-5 rounded-2xl cursor-pointer"></div>
                 <div className="bg-stone-950/80 border-b-1 w-100 h-100 ml-5 rounded-2xl cursor-pointer"></div>
 
-
             </div>
             </div>
             <NavBar/>

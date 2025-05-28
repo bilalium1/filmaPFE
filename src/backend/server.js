@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import 'dotenv/config'; // Add this line at the top
 import filmRoutes from "./routes/film.route.js";
+import commRoutes from './routes/comment.routes.js'
 import userRoutes from "./routes/user.route.js";
 import favRoutes from "./routes/favorite.routes.js";
 import cors from 'cors'
@@ -23,7 +24,7 @@ app.use("/api", tmdbRoutes);
 app.use("/api/favorites", favRoutes);
 //app.use("/api/history", histRoutes);
 //app.use("/api/reviews", revRoutes);
-//app.use("/api/comments", commRoutes);
+app.use("/api/comments", commRoutes);
 //app.use("/api/videos", vidRoutes);
 
 const __filename = fileURLToPath(import.meta.url);

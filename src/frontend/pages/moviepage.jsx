@@ -95,7 +95,7 @@ const FilmPage = () => {
    const buttoncss="px-4 mx-1 my-auto h-12 rounded-lg text-stone-100 font-light tracking-wider hover:text-stone-950 transition-all b ease-out hover:px-6 hover:text-lg hover:backdrop-brightness-400 hover:font-black cursor-pointer"
 
   return (
-    <div className="flex h-full w-full">
+    <div className="flex h-[4000px] w-full">
         <NavBar/>
         <div className='relative mx-auto mt-20 h-500 w-9/10 bg-linear-to-b from-cyan-900/20 to-75% rounded-lg overflow-hidden'>
             <h3 className='w-full h-20 text-4xl font-extralight z-2 text-center uppercase p-5'>{film.title}</h3>
@@ -136,7 +136,7 @@ const FilmPage = () => {
             </button>
           ))}
 
-          <CommentSection/>
+          <CommentSection film_id={film.id} media_type={"film"}/>
         </div>
     </div>
   );

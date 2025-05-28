@@ -30,9 +30,9 @@ export async function getAllComments() {
 }
 
 // Get comments by film ID
-export async function getCommentsByFilmId(filmid) {
+export async function getCommentsByFilmId(film_id) {
   try {
-    const res = await fetch(`${baseUrl}/film/${filmid}`);
+    const res = await fetch(`${baseUrl}/film/${film_id}`);
     if (!res.ok) throw new Error(await res.text());
     return await res.json();
   } catch (err) {
@@ -52,3 +52,35 @@ export async function deleteComment(id) {
     throw new Error(`Failed to delete comment: ${err.message}`);
   }
 }
+
+export async function likeComment(commentId, userId) {
+  try {
+    const res = await fetch(`${baseUrl}/like/${commentId}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId }),
+    });
+
+    if (!res.ok) throw new Error(await res.text());
+    return await res.json();
+  } catch (err) {
+    throw new Error(`Failed to like comment: ${err.message}`);
+  }
+}
+
+export async function dislikeComment(commentId, userId) {
+  try {
+    const res = await fetch(`${baseUrl}/dislike/${commentId}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId }),
+    });
+
+    if (!res.ok) throw new Error(await res.text());
+    return await res.json();
+  } catch (err) {
+    throw new Error(`Failed to dislike comment: ${err.message}`);
+  }
+}
+
+

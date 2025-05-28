@@ -14,7 +14,7 @@ export const createComment = async (req, res) => {
 // Obtenir tous les commentaires
 export const getAllComments = async (req, res) => {
     try {
-        const comments = await Comment.find();
+        const comments = await Comment.find().populate('user_id', 'username email is_admin');
         res.json(comments);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -24,7 +24,7 @@ export const getAllComments = async (req, res) => {
 // Obtenir les commentaires d’un film spécifique
 export const getCommentsByFilmId = async (req, res) => {
     try {
-        const comments = await Comment.find({ filmid: req.params.filmid });
+        const comments = await Comment.find({ film_id: req.params.film_id }).populate('user_id', 'username email is_admin');
         res.json(comments);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -41,3 +41,43 @@ export const deleteComment = async (req, res) => {
         res.status(400).json({ error: err.message });
     }
 };
+
+// Augmenter le nombre de likes d’un commentaire
+export const likeComment = async (req, res) => {
+  const userId = req.body.userId;
+  try {
+    const comment = await Comment.findById(req.params.id);
+
+    if (!comment) return res.status(404).json({ error: "Comment not found" });
+
+    // If already liked, remove the like
+    if (comment.likes.includes(userId)) {
+      comment.likes.pull(userId);
+    } else {
+      comment.likes.push(userId);
+      // Remove from dislikes if exists
+      comment.dislikes.pull(userId);
+    }
+
+    await comment.save();
+    res.json(comment);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
+// Augmenter le nombre de dislikes d’un commentaire
+export const dislikeComment = async (req, res) => {
+    try {
+        const comment = await Comment.findByIdAndUpdate(
+            req.params.id,
+            { $inc: { dislikes: 1 } },
+            { new: true }
+        );
+        if (!comment) return res.status(404).json({ error: "Comment not found" });
+        res.json(comment);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
+

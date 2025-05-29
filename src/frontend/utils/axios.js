@@ -9,7 +9,7 @@ api.interceptors.response.use(
     if (error.response?.status === 401) {
       // Handle token expiration
       localStorage.removeItem('authToken');
-      window.location.href = 'auth/login';
+      window.location.href = '/auth/login';
     }
     return Promise.reject(error);
   }

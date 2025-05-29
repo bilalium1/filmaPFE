@@ -7,7 +7,7 @@ export const addFavorite = async (userId, movieId, mediaType) => {
         throw new Error('Both user ID and movie ID are required');
       }
   
-      const response = await fetch(`api/favorites`, {
+      const response = await fetch(`/api/favorites`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ export const addFavorite = async (userId, movieId, mediaType) => {
 
 export const getAllFavorites = async () => {
   try {
-    const response = await fetch(`api/favorites`);
+    const response = await fetch(`/api/favorites`);
 
     if (!response.ok) {
       throw new Error('Failed to fetch favorites');
@@ -49,7 +49,7 @@ export const getAllFavorites = async () => {
 
 export const getUserFavorites = async (userId) => {
   try {
-    const response = await fetch(`api/favorites/user/${userId}`);
+    const response = await fetch(`/api/favorites/user/${userId}`);
 
     if (!response.ok) {
       throw new Error('Failed to fetch user favorites');
@@ -64,7 +64,7 @@ export const getUserFavorites = async (userId) => {
 
 export const removeFavorite = async (userId, movieId, mediaType) => {
     try {
-      const response = await fetch(`api/favorites/`, {
+      const response = await fetch(`/api/favorites/`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

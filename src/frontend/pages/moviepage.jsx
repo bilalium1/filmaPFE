@@ -3,27 +3,48 @@ import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import NavBar from '../components/navbar.jsx';
 import axios from 'axios';
+import { addFavorite, isFavorite, removeFavorite } from '../api_services/favorite.service'
 import CommentSection from '../components/Commentaire.jsx';
+import Reviews from '../components/Rating.jsx';
 import Stream from '../components/MovieStream.jsx';
 import { useStore } from '../utils/store.js'
-import {
-  createComment,
-  getAllComments,
-  getCommentsByFilmId,
-  deleteComment,
-} from '../api_services/comment.service.js';
-
 import { AuthContext } from '../context/AuthContext.jsx';
+
+const movieGenres = {
+  28: "Action",
+  12: "Aventure",
+  16: "Animation",
+  35: "Comédie",
+  80: "Crime",
+  99: "Documentaire",
+  18: "Drame",
+  10751: "Famille",
+  14: "Fantastique",
+  36: "Histoire",
+  27: "Horreur",
+  10402: "Musique",
+  9648: "Mystère",
+  10749: "Romance",
+  878: "Science-fiction",
+  10770: "Téléfilm",
+  53: "Thriller",
+  10752: "Guerre",
+  37: "Western"
+};
+
+
 
 const servers = [ 'UN', 'DEUX', 'TROIS', 'QUATRE', 'CINQUE']
 
 const FilmPage = () => {
-  const { id } = useParams();
+  const { id:film_id } = useParams();
   const [film, setFilm] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [srvr, setSrvr] = useState(0);
   const [sauve, setSauve] = useState(false);
+
+  console.log(film_id);
 
   const { user, isLoading } = useContext(AuthContext);
 
@@ -33,7 +54,7 @@ const FilmPage = () => {
     const fetchFilm = async () => {
       try {
         // First try to get basic movie details
-        const response = await axios.get(`/api/movies/${id}`);
+        const response = await axios.get(`/api/movies/${film_id}`);
         
         setFilm({
           ...response.data,
@@ -47,11 +68,11 @@ const FilmPage = () => {
     };
 
     fetchFilm();
-  }, [id]);
+  }, [film_id, user]); 
 
   const get_isFav = async () => {
     try {
-      const is_fave = await isFavorite(user?.id, film?.id, film?.media_type);
+      const is_fave = await isFavorite(user.id, film?.id, "film");
       setSauve(is_fave)
       } catch (err) {
         console.log("err get fav : ", err);
@@ -62,7 +83,7 @@ const FilmPage = () => {
     try {
         if (!sauve) {
           setSauve(true)
-          await addFavorite(user.id, film?.id, film?.media_type);
+          await addFavorite(user.id, film?.id, "film");
           console.log("added!");
           fireSig();
         }
@@ -70,12 +91,12 @@ const FilmPage = () => {
           console.log(" err add favor : ", err);
         }
       }
-        
+
   const defavor = async () => {
             try {
                 if (sauve){
                     setSauve(false)
-                    await removeFavorite(user.id, film?.id, film?.media_type);
+                    await removeFavorite(user.id, film?.id, "film");
                     console.log("removed!");
                     fireSig();
                 }
@@ -88,6 +109,8 @@ const FilmPage = () => {
     get_isFav();
   }, [favor, defavor, srvr, film, loading])
 
+  console.log(film)
+
   if (loading) return <div className="loading-spinner">Loading...</div>;
   if (error) return <div className="error-message">Error: {error}</div>;
   if (!film) return <div>Film not found</div>;
@@ -98,13 +121,35 @@ const FilmPage = () => {
     <div className="flex h-[4000px] w-full">
         <NavBar/>
         <div className='relative mx-auto mt-20 h-500 w-9/10 bg-linear-to-b from-cyan-900/20 to-75% rounded-lg overflow-hidden'>
-            <h3 className='w-full h-20 text-4xl font-extralight z-2 text-center uppercase p-5'>{film.title}</h3>
+            <h3 className='w-full h-20 text-4xl font-bold tracking-widest z-2 text-center uppercase p-5'>{film.title}</h3>
 
             <div className='relative inline-flex w-full h-120'>
 
               <img src={`https://image.tmdb.org/t/p/original/${film.poster_path}`} className='relative lg:h-120 h-50 lg:w-80 w-30 mx-auto rounded-lg shadow-2xl opacity-80 hover:mt-2 hover:saturate-120 transition-all'/>
-              <div className='relative w-6/10 h-120 mx-auto rounded-lg shadow-2xl bg-stone-950/50 hover:mt-2 transition-all'>
-                <p className='text-left px-5 pt-5 text-sm font-bold'>➤ {film.overview}</p>
+              <div className='relative w-6/10 h-120 mx-auto rounded-lg shadow-2xl bg-stone-950/50 backdrop-blur-xl hover:mt-2 transition-all'>
+                <p className='px-5 pt-5 text-2xl text-center font-bold'>{film.tagline}</p>
+                <p className='mb-5 px-5 pt-5 text-xs text-left font-bold'>{film.overview}</p>
+                <div className='w-full h-12'>
+                  {film.genres?.map((gen) => (
+                      <span key={gen.id} className="px-5 py-2 text-sm bg-stone-950/50 backdrop-blur-sm rounded-lg mx-2 text-sm font-bold">
+                      {gen.name}
+                      </span>
+                  ))}
+                </div>
+
+                <div className="w-full fixed bottom-15 h-auto grid grid-rows-3 place-items-center gap-2">
+                  {film.production_companies?.slice(0, 3).map((comp) => (
+                    <img
+                      key={comp.id}
+                      className="max-h-12 max-w-30 invert"
+                      src={`https://image.tmdb.org/t/p/original/${comp.logo_path}`}
+                      alt={comp.name}
+                      />
+                    ))}
+                </div>
+
+                <a className='fixed right-5 top-5 w-10 h-10 bg-stone-950/50 rounded-lg font-bold uppercase text-emerald-500 text-2xl p-1' href={`${film.homepage}`}> 🌐 </a>
+
                 <p className='absolute tracking-widest right-5 bottom-5 font-bold'>{film.release_date}</p>
 
                 <button 
@@ -136,7 +181,9 @@ const FilmPage = () => {
             </button>
           ))}
 
-          <CommentSection film_id={film.id} media_type={"film"}/>
+          {/*<CommentSection film_id={film.id} media_type={"film"}/>*/}
+          <Reviews film_id={film.id} media_type={"film"}/>
+
         </div>
     </div>
   );

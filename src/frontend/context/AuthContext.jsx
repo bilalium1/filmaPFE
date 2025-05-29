@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
   // Fetch user data when token exists
   const fetchUser = async (token) => {
     try {
-      const { data } = await axios.get('api/auth/me', {
+      const { data } = await axios.get('/api/auth/me', {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -3,15 +3,15 @@ import Review from "../models/review.model.js";
 // Ajouter un avis
 export const createReview = async (req, res) => {
     try {
-        const { userid, filmid, rating, review } = req.body;
+        const { user_id, film_id, rating, review, media_type } = req.body;
 
         // Vérifier si l'utilisateur a déjà laissé un avis pour ce film
-        const existingReview = await Review.findOne({ userid, filmid });
+        const existingReview = await Review.findOne({ user_id, film_id });
         if (existingReview) {
             return res.status(400).json({ error: "Vous avez déjà laissé un avis pour ce film." });
         }
 
-        const newReview = new Review({ userid, filmid, rating, review });
+        const newReview = new Review({ user_id, film_id, rating, review, media_type });
         await newReview.save();
         res.status(201).json(newReview);
     } catch (err) {
@@ -32,7 +32,7 @@ export const getAllReviews = async (req, res) => {
 // Récupérer les avis pour un film spécifique
 export const getReviewsByFilmId = async (req, res) => {
     try {
-        const reviews = await Review.find({ filmid: req.params.filmid });
+        const reviews = await Review.find({ film_id: req.params.film_id }).populate("user_id", "username email is_admin");
         res.json(reviews);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -43,7 +43,7 @@ export const getReviewsByFilmId = async (req, res) => {
 export const updateReview = async (req, res) => {
     try {
         const updated = await Review.findOneAndUpdate(
-            { userid: req.body.userid, filmid: req.body.filmid },
+            { user_id: req.body.user_id, film_id: req.body.film_id },
             req.body,
             { new: true }
         );
@@ -57,8 +57,8 @@ export const updateReview = async (req, res) => {
 // Supprimer un avis
 export const deleteReview = async (req, res) => {
     try {
-        const { userid, filmid } = req.body;
-        const deleted = await Review.findOneAndDelete({ userid, filmid });
+        const { user_id, film_id } = req.body;
+        const deleted = await Review.findOneAndDelete({ user_id, film_id });
         if (!deleted) return res.status(404).json({ error: "Avis non trouvé." });
         res.json({ message: "Avis supprimé avec succès." });
     } catch (err) {

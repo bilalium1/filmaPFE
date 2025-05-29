@@ -122,6 +122,7 @@ function Tete({ medias: originalMedias}) {
         <div className="relative flex w-full h-[45vw] mt-20 group">
             {/* Background Blur */}
             <motion.img 
+                loading="lazy"
                 src={`https://image.tmdb.org/t/p/original/${media?.backdrop_path}`} 
                 className="absolute -top-20 inset-x-0 blur-[50px] size-[200%] object-cover saturate-80 -z-1"
                 initial={{ opacity: 0 }}
@@ -157,11 +158,12 @@ function Tete({ medias: originalMedias}) {
                     initial={{ opacity: 0, x: direction * 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: direction * -20 }}
-                    transition={{ duration: 0.8, ease: "easeInOutExpo" }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
                     className="relative mx-auto flex w-95/100 h-full border-t-[2px] border-stone-100/50 rounded-md overflow-hidden [box-shadow:0px_5px_10px_0px_rgba(0,0,0,0.5)]"
                 >
                     {/* Main Image with Ken Burns effect */}
                     <motion.img 
+                        loading="lazy"
                         src={`https://image.tmdb.org/t/p/original/${media?.backdrop_path}`}
                         className="absolute w-full h-full object-cover"
                         initial={{ scale: 1.2 }}
@@ -190,7 +192,7 @@ function Tete({ medias: originalMedias}) {
                             {`★ ${media?.vote_average?.toFixed(1)}`}
                         </p>
                         <p className={`absolute ${sauve ? "opacity-100" : "opacity-0"} tracking-wide text-md lg:text-2xl bg-pink-400/70 lg:w-10 p-1 w-6 lg:h-10 h-6 lg:rounded-lg rounded-sm backdrop-blur-lg text-white z-3 font-light text-center uppercase right-3 transition-all`}>
-                        ◉
+                        ⛛
                         </p>
                     </motion.div>
 

@@ -31,7 +31,7 @@ const CommentSection = ({ film_id, media_type }) => {
 
   useEffect(() => {
     fetchComms(film_id);
-  }, [film_id, commentChange]);
+  }, [film_id, commentChange, user, isloading, allComments, text]);
 
   const handleLike = async (id) => {
 

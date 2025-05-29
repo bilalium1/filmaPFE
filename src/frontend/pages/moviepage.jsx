@@ -32,8 +32,6 @@ const movieGenres = {
   37: "Western"
 };
 
-
-
 const servers = [ 'UN', 'DEUX', 'TROIS', 'QUATRE', 'CINQUE']
 
 const FilmPage = () => {

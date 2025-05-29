@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import reviewService from "../api_services/review.service.js";
 import { AuthContext } from "../context/AuthContext";
 
-const Reviews = ({ film_id, media_type }) => {
+const Reviews = ({ film_id, media_type, cour }) => {
   const [allReviews, setAllReviews] = useState([]);
   const [text, setText] = useState("");
   const [rating, setRating] = useState(0);
@@ -24,7 +24,7 @@ const Reviews = ({ film_id, media_type }) => {
 
   useEffect(() => {
     fetchRevs(film_id);
-  }, [film_id, user, isloading, text]);
+  }, [film_id, user, isloading, text, cour]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,7 +51,7 @@ const Reviews = ({ film_id, media_type }) => {
   console.log(allReviews);
 
   return (
-    <div className="w-29/30 mx-auto mt-5 p-4 bg-rose-950/30 backdrop-blur-sm rounded-2xl shadow-md">
+    <div className={`w-29/30 mx-auto mt-5 p-4 bg-rose-950/30 backdrop-blur-sm rounded-2xl shadow-md ${cour ? "opacity-0 mt-20 hidden" : "block opacity-100 mt-0"} transition-all`}>
       <h2 className="text-3xl font-semibold mb-4 text-zinc-800 dark:text-zinc-100 uppercase">AVIS</h2>
 
       {/* Input Form */}

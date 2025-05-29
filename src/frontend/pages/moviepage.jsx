@@ -41,6 +41,7 @@ const FilmPage = () => {
   const [error, setError] = useState(null);
   const [srvr, setSrvr] = useState(0);
   const [sauve, setSauve] = useState(false);
+  const [cour, setCour] = useState(false);
 
   console.log(film_id);
 
@@ -179,8 +180,10 @@ const FilmPage = () => {
             </button>
           ))}
 
-          {/*<CommentSection film_id={film.id} media_type={"film"}/>*/}
-          <Reviews film_id={film.id} media_type={"film"}/>
+          <button onClick={() => {setCour(!cour)}} className='mx-100 my-10 w-60 h-12 rounded-lg bg-emerald-500/50 text-center p-2 text-2xl font-bold cursor-pointer hover:bg-white hover:text-emerald-500'> {cour ? "Avis ➨" : "Commentaires ➨ "} </button>
+
+          <CommentSection film_id={film.id} media_type={"film"} cour={cour}/>
+          <Reviews film_id={film.id} media_type={"film"} cour={cour}/>
 
         </div>
     </div>

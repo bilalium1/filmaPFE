@@ -62,7 +62,7 @@ function Tete({ medias: originalMedias}) {
 
     // Filter medias
     const filterMedias = originalMedias
-        ?.filter(media => media.vote_average > 6.6)
+        ?.filter(media => media.vote_average > 6)
         ?.filter(media => media.adult === false)
         ?.filter(media => media.original_language === "en")
         ?.filter(media => !media.genre_ids?.includes(10751))

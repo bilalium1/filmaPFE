@@ -205,7 +205,7 @@ function Homepage() {
 
       <NavBar medias={medias}/>
 
-      {medias.length > 0 && <Tete medias={medias.slice(0,280)} />}
+      {medias.length > 0 && <Tete medias={medias.slice(0,120)} />}
 
       {/* Category Sections - Only show for popular tab */}
       {ufaves.length > 0 && (<CategoryDiv title={"Favorites ★"} medias={ufaves} genre={0}/>)}

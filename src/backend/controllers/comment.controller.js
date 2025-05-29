@@ -68,16 +68,25 @@ export const likeComment = async (req, res) => {
 
 // Augmenter le nombre de dislikes d’un commentaire
 export const dislikeComment = async (req, res) => {
-    try {
-        const comment = await Comment.findByIdAndUpdate(
-            req.params.id,
-            { $inc: { dislikes: 1 } },
-            { new: true }
-        );
-        if (!comment) return res.status(404).json({ error: "Comment not found" });
-        res.json(comment);
-    } catch (err) {
-        res.status(400).json({ error: err.message });
+  const userId = req.body.userId;
+  try {
+    const comment = await Comment.findById(req.params.id);
+
+    if (!comment) return res.status(404).json({ error: "Comment not found" });
+
+    // If already disliked, remove the dislike
+    if (comment.dislikes.includes(userId)) {
+      comment.dislikes.pull(userId);
+    } else {
+      comment.dislikes.push(userId);
+      // Remove from likes if exists
+      comment.likes.pull(userId);
     }
+
+    await comment.save();
+    res.json(comment);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 };
 

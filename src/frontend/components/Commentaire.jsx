@@ -9,7 +9,7 @@ import {
 
 import { AuthContext } from "../context/AuthContext";
 
-const CommentSection = ({ film_id, media_type }) => {
+const CommentSection = ({ film_id, media_type, cour }) => {
   const [allComments, setAllComments] = useState([]);
   const [text, setText] = useState("");
   const {user, isloading} = useContext(AuthContext);
@@ -31,7 +31,7 @@ const CommentSection = ({ film_id, media_type }) => {
 
   useEffect(() => {
     fetchComms(film_id);
-  }, [film_id, commentChange, user, isloading, allComments, text]);
+  }, [film_id, user, isloading, text, cour]);
 
   const handleLike = async (id) => {
 
@@ -79,7 +79,7 @@ const CommentSection = ({ film_id, media_type }) => {
   console.log(allComments);
 
   return (
-    <div className="w-29/30 mx-auto mt-5 p-4 bg-rose-950/30 backdrop-blur-sm rounded-2xl shadow-md">
+    <div className={`w-29/30 mx-auto mt-5 p-4 bg-rose-950/30 backdrop-blur-sm rounded-2xl shadow-md ${cour ? "opacity-100 mt-0 block" : "hidden opacity-0 mt-20"} transition-all`}>
       <h2 className="text-3xl font-semibold mb-4 text-zinc-800 dark:text-zinc-100 uppercase">Commentaires</h2>
 
       {/* Input Form */}
@@ -131,7 +131,7 @@ const CommentSection = ({ film_id, media_type }) => {
               </button>
               <button
                 onClick={() => handleDislike(comment._id)}
-                className="fAllCommentslex items-center text-sm gap-1 text-xl text-rose-400 hover:text-rose-200 cursor-pointer bg-stone-950/50 px-2 rounded-lg hover:ml-1 transition-all active:mt-2"
+                className="flex items-center text-sm gap-1 text-xl text-rose-400 hover:text-rose-200 cursor-pointer bg-stone-950/50 px-2 rounded-lg hover:ml-1 transition-all active:mt-2"
               >
                 ⮟ {Array.isArray(comment.dislikes) ? comment.dislikes.length : 0}
               </button>

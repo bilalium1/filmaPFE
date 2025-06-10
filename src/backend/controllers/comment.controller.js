@@ -24,7 +24,7 @@ export const getAllComments = async (req, res) => {
 // Obtenir les commentaires d’un film spécifique
 export const getCommentsByFilmId = async (req, res) => {
     try {
-        const comments = await Comment.find({ film_id: req.params.film_id }).populate('user_id', 'username email is_admin');
+        const comments = await Comment.find({ film_id: req.params.film_id }).populate('user_id', 'username email is_admin location sexe');
         res.json(comments);
     } catch (err) {
         res.status(500).json({ error: err.message });

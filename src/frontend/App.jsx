@@ -10,6 +10,9 @@ import { AuthProvider } from './context/AuthContext';
 import ChatBot from './components/ChatBot.jsx';
 import Footer from './pages/Footer.jsx';
 import TheaterPage from './pages/theaterpage.jsx'
+import UserPage from './pages/userpage.jsx';
+import Chat from './components/Chat.jsx'
+import ForumPage from "./pages/forumpage.jsx";
 
 function App() {
     return (
@@ -23,9 +26,12 @@ function App() {
               <Route path="/series/:id/:season/:episode" element={<TvPage />}/>
               <Route path="/auth" element={<Auth/>}/>
               <Route path="/theatres" element={<TheaterPage/>}/>
+              <Route path="/user/:id" element={<UserPage/>}/>
+              <Route path="/theatre" element={<ForumPage/>}></Route>
             </Routes>
           </Router>
-          <Footer />     
+          <Footer /> 
+          <Chat/> 
           <ChatBot />
         </div>
       </AuthProvider>

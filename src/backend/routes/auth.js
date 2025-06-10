@@ -11,7 +11,9 @@ router.post('/register',
     [
       body('email').isEmail().normalizeEmail(), // Normalizes email (lowercase + trim)
       body('password').isLength({ min: 6 }),
-      body('username').isLength({ min: 3 })
+      body('username').isLength({ min: 3 }),
+      body('sexe').isBoolean().isBoolean(),
+      body('location').trim().notEmpty().withMessage('location is required')
     ],
     async (req, res) => {
       // Validate request body
@@ -20,7 +22,7 @@ router.post('/register',
         return res.status(400).json({ errors: errors.array() });
       }
   
-      const { username, email, password } = req.body;
+      const { username, email, password, location, sexe } = req.body;
       const normalizedEmail = email.toLowerCase().trim(); // Force lowercase + trim
   
       try {
@@ -31,7 +33,7 @@ router.post('/register',
         }
   
         // Create and save user (password is hashed via pre-save hook)
-        const user = new User({ username, email: normalizedEmail, password, is_admin : false });
+        const user = new User({ username, email: normalizedEmail, password, is_admin : false , location, sexe});
         await user.save();
   
         res.status(201).json({ message: 'User registered!' });
@@ -81,7 +83,9 @@ router.get('/me', async (req, res) => {
       id: user._id,
       username: user.username,
       email: user.email,
-      is_admin: user.isAdmin // Include any other relevant fields
+      is_admin: user.is_admin, // Include any other relevant fields
+      location: user.location,
+      sexe : user.sexe
     });
   } catch (err) {
     res.status(401).json({ error: 'Invalid token' });

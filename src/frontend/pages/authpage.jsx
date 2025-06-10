@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { EnvelopeIcon, LockClosedIcon, UserIcon, ArrowPathIcon, XCircleIcon } from '@heroicons/react/24/outline';
 import { AuthContext } from '../context/AuthContext.jsx'
 import axios from 'axios'
+import MoroccanCityDropdown from '../components/CityDrop.jsx';
+import GenderToggle from '../components/SexeSwitch.jsx';
 
 export default function Auth() {
 
@@ -11,7 +13,9 @@ export default function Auth() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    username: ''
+    username: '',
+    location: '',
+    sexe: true
   });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -49,6 +53,8 @@ export default function Auth() {
       const payload = isLogin 
         ? { email: formData.email, password: formData.password }
         : formData;
+
+      console.log(formData);
 
       const response = await axios.post(endpoint, payload);
       
@@ -116,7 +122,10 @@ export default function Auth() {
                   />
                 </div>
                 {errors.username && <p className="mt-2 text-sm text-amber-500">{errors.username}</p>}
+                <MoroccanCityDropdown value={formData.location} onChange={(value) =>setFormData((prev) => ({ ...prev, location: value }))}/>
+                <GenderToggle isMale={formData.sexe} setIsMale={(value) => setFormData((prev) => ({ ...prev, sexe: value }))} />
               </div>
+
             )}
 
             <div>

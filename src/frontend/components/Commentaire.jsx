@@ -6,7 +6,7 @@ import {
   likeComment,
   dislikeComment
 } from "../api_services/comment.service";
-
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 const CommentSection = ({ film_id, media_type, cour }) => {
@@ -14,6 +14,7 @@ const CommentSection = ({ film_id, media_type, cour }) => {
   const [text, setText] = useState("");
   const {user, isloading} = useContext(AuthContext);
   const [commentChange, setCchange] = useState(false);
+  const navigate = useNavigate();
 
   if (!user) {
     return (<div>NO USER FOUND</div>)
@@ -109,9 +110,9 @@ const CommentSection = ({ film_id, media_type, cour }) => {
             key={comment._id}
             className="p-4 rounded-xl bg-stone-950/20 border-emerald-500/50 border backdrop-blur-xl"
           >
-            <div className="flex items-center justify-between">
+            <div onClick={() => navigate(`/user/${comment.user_id._id}`)} className="flex items-center justify-between cursor-pointer">
               <span className="font-semibold bg-emerald-500/20 px-3 mb-2 rounded-sm text-white">
-                {comment.user_id.username} ⮞ {comment.user_id.email}
+                {comment.user_id.username} 🯟🯟 {comment.user_id.email} 🯟🯟 {comment.user_id.location}
               </span>
 
               {comment.user_id.is_admin && (

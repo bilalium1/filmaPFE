@@ -30,9 +30,9 @@ function NavBar({medias}){
     }
 
     const theatres = {
-        "✦ Theatres Publiques" : "/api/tv/popular",
-        "✦ Theatres Privees" : "/api/tv/popular",
-        "✦ Theatres Amicals": "/api/tv/popular"
+        "✦ Theatres Publiques" : "/theatres",
+        "✦ Theatres Privees" : "/theatres",
+        "✦ Theatres Amicals": "/theatres"
     }
 
     const buttoncss=" h-3/4 lg:text-lg text-[7px] rounded-sm lg:mx-2 mx-0 mt-1.5 hover:backdrop-brightness-200 transition-all px-3 uppercase cursor-pointer"
@@ -48,9 +48,8 @@ function NavBar({medias}){
             <FaSearch onClick={() => setSopen(!s_open)} className='hover:backdrop-brightness-150 size-9 rounded-sm p-3 cursor-pointer my-auto'/>
             { user && (<CiLogout onClick={() => {logout(); navigate('/')}} className='absolute right-2 top-2 hover:bg-red-400 size-8 rounded-sm p-2 bg-red-400/50 cursor-pointer my-auto'/>)}
 
-            <SearchBar css={ s_open ? "opacity-100 mt-15 blur-0" : "opacity-0 mt-10 pointer-events-none"}/>
-
-            <button onClick={() => navigate('/auth')} className={`absolute ${ !user ? "right-0" : "right-10"} ${buttoncss}`}>❯❯ {!user ? "Se Connecter" : user.username}</button>
+            <button onClick={() => {!user ? navigate('/auth') : navigate(`/user/${user.id}`)}} className={`absolute ${ !user ? "right-0" : "right-10"} ${buttoncss}`}>❯❯ {!user ? "Se Connecter" : user.username}</button>
+            <SearchBar parent="navbar" css={ s_open ? "opacity-100 mt-15 blur-0 block absolute" : "opacity-0 mt-10 pointer-events-none hidden"}/>
         </div>
     )
 }

@@ -129,7 +129,7 @@ const ChatBot = () => {
     <>
       <button
         onClick={toggleChat}
-        className={`fixed bottom-6 right-6 rounded-full border-t-2 cursor-pointer backdrop-blur-sm size-12 flex items-center justify-center shadow-lg z-50 transition-all ${
+        className={`fixed bottom-6 left-6 rounded-full border-t-2 cursor-pointer backdrop-blur-sm size-12 flex items-center justify-center shadow-lg z-50 transition-all ${
           isOpen ? "bg-gray-700" : "bg-linear-to-b from-red-600/80 to-pink-500/50"
         } active:bottom-4 hover:bottom-5`}
       >
@@ -141,7 +141,7 @@ const ChatBot = () => {
       </button>
 
       {isOpen && (
-        <div className="fixed bottom-24 right-6 w-80 md:w-96 h-96 flex flex-col z-40 bg-stone-900/50 backdrop-blur-sm rounded-lg">
+        <div className="fixed bottom-24 left-6 w-80 md:w-96 h-96 flex flex-col z-40 bg-stone-900/50 backdrop-blur-sm rounded-lg">
           <div className="bg-linear-to-br from-red-600/50 to-pink-500/20 text-white py-3 px-4 text-center font-light rounded-t-lg">
             FIL.MA CHAT
           </div>

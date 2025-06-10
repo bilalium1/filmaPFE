@@ -5,12 +5,14 @@ import filmRoutes from "./routes/film.route.js";
 import commRoutes from './routes/comment.routes.js'
 import userRoutes from "./routes/user.route.js";
 import favRoutes from "./routes/favorite.routes.js";
-import revRoutes from "./routes/review.routes.js"
+import revRoutes from "./routes/review.routes.js";
+import thtrRoutes from "./routes/theater.routes.js";
 import cors from 'cors'
 import authRoutes from './routes/auth.js'
 import { fileURLToPath } from 'url';
 import path from 'path';
 import tmdbRoutes from './routes/tmdb.route.js'
+import frndRoutes from './routes/friend.routes.js'
 
 const app = express();
 
@@ -23,6 +25,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api", tmdbRoutes);
 app.use("/api/favorites", favRoutes);
+app.use("/api/friends", frndRoutes);
+app.use("/api/theatres", thtrRoutes);
 //app.use("/api/history", histRoutes);
 app.use("/api/reviews", revRoutes);
 app.use("/api/comments", commRoutes);

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { MagnifyingGlassIcon, XMarkIcon, PhotoIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from 'react-router-dom';
 
-export default function SearchBar({css=""}) {
+export default function SearchBar({css="", parent, setFilm}) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -56,15 +56,20 @@ export default function SearchBar({css=""}) {
   };
 
   const handleResultClick = (result) => {
-    const route = result.media_type === 'movie' 
+    if (parent === "navbar") {
+      const route = result.media_type === 'movie' 
       ? `/films/${result.id}` 
       : `/series/${result.id}/1/1`;
-    navigate(route);
-    clearSearch();
+      navigate(route);
+      clearSearch();
+    } else if (parent === "theatre") {
+      setFilm(result);
+      clearSearch();
+    }
   };
 
   return (
-    <div className={`absolute w-full transition-all backdrop-blur-sm duration-500 mx-auto ${css}`} ref={searchRef}>
+    <div className={`mx-auto w-full transition-all backdrop-blur-sm duration-500 mx-auto ${css}`} ref={searchRef}>
       <div className="relative flex items-center">
         <MagnifyingGlassIcon className="absolute left-3 h-5 w-5 text-stone-100 z-2" />
         <input
@@ -73,7 +78,7 @@ export default function SearchBar({css=""}) {
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => setIsFocused(true)}
           placeholder="Chercher les Films ou Series que tu veux..."
-          className="w-full h-12 pl-10 pr-10 py-2 rounded-md focus:outline-none focus:ring-0 focus:border-transparent bg-stone-950/50"
+          className="w-full h-12 pl-10 pr-10 py-2 rounded-md focus:outline-none focus:ring-0 focus:border-transparent bg-rose-950/50"
         />
         {query && (
           <button
@@ -87,7 +92,7 @@ export default function SearchBar({css=""}) {
 
       {/* Dropdown results */}
       {isFocused && (query || results.length > 0) && (
-        <div className="absolute z-50 mt-2 w-full bg-stone-950/50 rounded-lg shadow-lg overflow-hidden backdrop-blur-sm">
+        <div className="absolute z-50 mt-2 w-full bg-rose-950/50 rounded-lg shadow-lg overflow-hidden backdrop-blur-sm">
           {isLoading ? (
             <div className="p-4 text-center text-stone-500 dark:text-stone-400">
               Loading...
@@ -97,7 +102,7 @@ export default function SearchBar({css=""}) {
               {results.map((result) => (
                 <li
                   key={`${result.media_type}-${result.id}`}
-                  className="hover:bg-stone-100 dark:hover:bg-stone-700/50 cursor-pointer transition-colors"
+                  className="hover:bg-emerald-400/80 cursor-pointer transition-colors"
                   onClick={() => handleResultClick(result)}
                 >
                     

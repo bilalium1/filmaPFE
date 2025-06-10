@@ -32,7 +32,7 @@ export const getAllReviews = async (req, res) => {
 // Récupérer les avis pour un film spécifique
 export const getReviewsByFilmId = async (req, res) => {
     try {
-        const reviews = await Review.find({ film_id: req.params.film_id }).populate("user_id", "username email is_admin");
+        const reviews = await Review.find({ film_id: req.params.film_id }).populate("user_id", "username email is_admin location sexe");
         res.json(reviews);
     } catch (err) {
         res.status(500).json({ error: err.message });

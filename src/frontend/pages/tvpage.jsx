@@ -81,7 +81,7 @@ const TvPage = () => {
 
   const get_isFav = async () => {
       try {
-        const is_fave = await isFavorite(user?.id, show?.id, "serie");
+        const is_fave = await isFavorite(user.id, show?.id, "serie");
         setSauve(is_fave)
         } catch (err) {
           console.log("err get fav : ", err);
@@ -164,6 +164,8 @@ const TvPage = () => {
             
             <img src={`https://image.tmdb.org/t/p/original/${show.backdrop_path}`} className='absolute top-0 w-full h-150 object-cover opacity-80 -z-1 mask-fade-bottom'/>
             <img src={`https://image.tmdb.org/t/p/original/${show.poster_path}`} className='absolute top-150 w-full h-full object-cover opacity-20 blur-sm -z-1 mask-fade-top'/>
+            <DropMenu title={"Seasons"} elements={seasons} css={buttoncss}/>
+            <DropMenu title={"Episodes"} elements={eps} css={buttoncss}/>
         </div>
 
         <div className='absolute h-full w-29/30 top-180 left-1/2 -translate-x-1/2'>

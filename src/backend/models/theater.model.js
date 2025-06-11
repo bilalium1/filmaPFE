@@ -1,9 +1,11 @@
 import mongoose from "mongoose"
 
 const theaterSchema = mongoose.Schema({
-        film_id : {type : Number, required : true},
-        host_id : { type : Number, required : true},
-        name : { type : String, required : true},
+        film_id : {type : Number},
+        host_id : { type : mongoose.Schema.Types.ObjectId, required : true, ref : "User"},
+        title : { type : String, required : true},
+        is_private : {type : Boolean, required : true},
+        code : {type : String}
     }, 
     {timestamps : true}
 );

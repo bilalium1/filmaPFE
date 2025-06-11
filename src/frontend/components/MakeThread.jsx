@@ -1,18 +1,54 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import SearchBar from "./searchBar";
+import theaterService from "../api_services/theater.service";
+import { AuthContext } from "../context/AuthContext";
 
 export default function CreateThread({ onCreate }) {
   const [title, setTitle] = useState("");
   const [isPrivate, setIsPrivate] = useState(false);
   const [film, setFilm] = useState([]);
+  const [code, setCode] = useState("");
+  const {user} = useContext(AuthContext);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (title.trim() === "") return alert("Thread title can't be empty!");
-    onCreate({ title: title.trim(), isPrivate });
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (title.trim() === "") {
+    return alert("Thread title can't be empty!");
+  }
+
+  // Build payload dynamically
+  const payload = {
+    title: title.trim(),
+    is_private: isPrivate,
+    host_id: user.id, // 🔐 Replace with actual user ID from auth context/store
+  };
+
+  if (film?._id) {
+    payload.film_id = film._id;
+  }
+
+  if (isPrivate) {
+    if (code.trim() === "") return alert("Private threads require a code.");
+    payload.code = code.trim();
+  }
+
+  try {
+    const newThread = await theaterService.createTheater(payload);
+    onCreate?.(newThread); // optional chaining in case it's not provided
+
+    // Reset state
     setTitle("");
     setIsPrivate(false);
-  };
+    setFilm([]);
+    setCode("");
+
+  } catch (err) {
+    console.error("Failed to create theater:", err);
+    alert("Erreur lors de la création du théâtre.");
+  }
+};
+
 
   useEffect(() => {
     console.log(film);
@@ -28,10 +64,11 @@ export default function CreateThread({ onCreate }) {
       <input
         type="text"
         placeholder="Titre de Theatre"
-        className="w-full p-2 rounded bg-stone-800 text-rose-300 border border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500"
+        className="w-full p-2 rounded bg-stone-800 text-center text-rose-300 border border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
+
       <p onClick={() => setFilm([])} className={`p-2 rounded-sm font-bold hover:bg-rose-800 cursor-pointer transition-all ${film.length==0 ? "bg-rose-800" : "bg-rose-500"}`}>
             {(film.length==0) ? "Sans film." : `${film?.title || ''} ${film?.name || ''}`}
         </p>
@@ -47,6 +84,14 @@ export default function CreateThread({ onCreate }) {
         />
         <span>{isPrivate ? "Theatre Privee" : "Theatre Publique"}</span>
       </label>
+
+      {isPrivate && (<input
+        type="text"
+        placeholder="Code du Theatre"
+        className="w-5/10 p-2 rounded bg-stone-800 text-center text-rose-300 border border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500"
+        value={code}
+        onChange={(e) => setCode(e.target.value)}
+      />)}
 
       <button
         type="submit"

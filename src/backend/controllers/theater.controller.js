@@ -3,9 +3,9 @@ import Theater from "../models/theater.model.js";
 // Créer un nouveau théâtre
 export const createTheater = async (req, res) => {
     try {
-        const { filmid, hostid, name } = req.body;
+        const { film_id, host_id, title, is_private, code } = req.body;
 
-        const newTheater = new Theater({ film_id, host_id, name });
+        const newTheater = new Theater({ film_id, host_id, title, is_private, code});
         await newTheater.save();
 
         res.status(201).json(newTheater);
@@ -27,7 +27,7 @@ export const getAllTheaters = async (req, res) => {
 // Récupérer les théâtres par film (id du film)
 export const getTheatersByFilmId = async (req, res) => {
     try {
-        const theaters = await Theater.find({ filmid: req.params.film_id });
+        const theaters = await Theater.find({ film_id: req.params.film_id });
         res.json(theaters);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -37,7 +37,7 @@ export const getTheatersByFilmId = async (req, res) => {
 // Récupérer les théâtres par host (id de l'hôte)
 export const getTheatersByHostId = async (req, res) => {
     try {
-        const theaters = await Theater.find({ hostid: req.params.host_id });
+        const theaters = await Theater.find({ host_id: req.params.host_id });
         res.json(theaters);
     } catch (err) {
         res.status(500).json({ error: err.message });

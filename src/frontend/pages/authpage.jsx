@@ -80,7 +80,7 @@ export default function Auth() {
   };
 
   return (
-    <div className="min-h-screen bg-stone-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-stone-100">
           {isLogin ? 'Sign in to your account' : 'Create a new account'}
@@ -88,15 +88,15 @@ export default function Auth() {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-stone-800 py-8 px-4 shadow-xl shadow-stone-950/50 sm:rounded-lg sm:px-10 border border-stone-700">
+        <div className="bg-rose-950/50 py-8 px-4 shadow-xl shadow-stone-950/50 sm:rounded-lg sm:px-10 border border-stone-700">
           {authError && (
-            <div className="mb-4 bg-stone-900 border-l-4 border-amber-500 p-4">
+            <div className="mb-4 bg-stone-900 border-l-4 border-rose-500 p-4">
               <div className="flex">
                 <div className="flex-shrink-0">
-                  <XCircleIcon className="h-5 w-5 text-amber-500" />
+                  <XCircleIcon className="h-5 w-5 text-rose-500" />
                 </div>
                 <div className="ml-3">
-                  <p className="text-sm text-amber-100">{authError}</p>
+                  <p className="text-sm text-rose-100">{authError}</p>
                 </div>
               </div>
             </div>
@@ -118,10 +118,10 @@ export default function Auth() {
                     type="text"
                     value={formData.username}
                     onChange={handleChange}
-                    className={`block w-full pl-10 pr-3 py-2 bg-stone-900 text-stone-100 ${errors.username ? 'border-amber-500' : 'border-stone-700'} rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500 border`}
+                    className={`block w-full pl-10 pr-3 py-2 bg-stone-900 text-stone-100 ${errors.username ? 'border-rose-500' : 'border-stone-700'} rounded-md shadow-sm focus:outline-none focus:ring-rose-500 focus:border-rose-500 border`}
                   />
                 </div>
-                {errors.username && <p className="mt-2 text-sm text-amber-500">{errors.username}</p>}
+                {errors.username && <p className="mt-2 text-sm text-rose-500">{errors.username}</p>}
                 <MoroccanCityDropdown value={formData.location} onChange={(value) =>setFormData((prev) => ({ ...prev, location: value }))}/>
                 <GenderToggle isMale={formData.sexe} setIsMale={(value) => setFormData((prev) => ({ ...prev, sexe: value }))} />
               </div>
@@ -142,10 +142,10 @@ export default function Auth() {
                   type="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className={`block w-full pl-10 pr-3 py-2 bg-stone-900 text-stone-100 ${errors.email ? 'border-amber-500' : 'border-stone-700'} rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500 border`}
+                  className={`block w-full pl-10 pr-3 py-2 bg-stone-900 text-stone-100 ${errors.email ? 'border-rose-500' : 'border-stone-700'} rounded-md shadow-sm focus:outline-none focus:ring-rose-500 focus:border-rose-500 border`}
                 />
               </div>
-              {errors.email && <p className="mt-2 text-sm text-amber-500">{errors.email}</p>}
+              {errors.email && <p className="mt-2 text-sm text-rose-500">{errors.email}</p>}
             </div>
 
             <div>
@@ -162,10 +162,10 @@ export default function Auth() {
                   type="password"
                   value={formData.password}
                   onChange={handleChange}
-                  className={`block w-full pl-10 pr-3 py-2 bg-stone-900 text-stone-100 ${errors.password ? 'border-amber-500' : 'border-stone-700'} rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500 border`}
+                  className={`block w-full pl-10 pr-3 py-2 bg-stone-900 text-stone-100 ${errors.password ? 'border-rose-500' : 'border-stone-700'} rounded-md shadow-sm focus:outline-none focus:ring-rose-500 focus:border-rose-500 border`}
                 />
               </div>
-              {errors.password && <p className="mt-2 text-sm text-amber-500">{errors.password}</p>}
+              {errors.password && <p className="mt-2 text-sm text-rose-500">{errors.password}</p>}
             </div>
 
             {isLogin && (
@@ -175,7 +175,7 @@ export default function Auth() {
                     id="remember-me"
                     name="remember-me"
                     type="checkbox"
-                    className="h-4 w-4 text-amber-600 focus:ring-amber-500 border-stone-700 rounded bg-stone-900"
+                    className="h-4 w-4 text-rose-600 focus:ring-rose-500 border-stone-700 rounded bg-stone-900"
                   />
                   <label htmlFor="remember-me" className="ml-2 block text-sm text-stone-400">
                     Remember me
@@ -183,7 +183,7 @@ export default function Auth() {
                 </div>
 
                 <div className="text-sm">
-                  <a href="#" className="font-medium text-amber-500 hover:text-amber-400">
+                  <a href="#" className="font-medium text-rose-500 hover:text-rose-400">
                     Forgot your password?
                   </a>
                 </div>
@@ -194,11 +194,11 @@ export default function Auth() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-stone-900 bg-amber-500 hover:bg-amber-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 disabled:opacity-70 disabled:cursor-not-allowed transition-colors duration-200"
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-stone-900 bg-rose-500 hover:bg-rose-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500 disabled:opacity-70 disabled:cursor-not-allowed transition-colors duration-200"
               >
                 {isLoading ? (
                   <>
-                    <ArrowPathIcon className="animate-spin -ml-1 mr-3 h-5 w-5 text-stone-900" />
+                    <ArrowPathIcon className="animate-spin -ml-1 mr-3 h-5 w-5 text-rose-500" />
                     Processing...
                   </>
                 ) : isLogin ? 'Sign in' : 'Register'}
@@ -237,7 +237,7 @@ export default function Auth() {
             <button
               type="button"
               onClick={toggleAuthMode}
-              className="font-medium text-amber-500 hover:text-amber-400 transition-colors duration-200"
+              className="font-medium text-rose-500 hover:text-rose-400 transition-colors duration-200"
             >
               {isLogin ? 'Need an account? Register' : 'Already have an account? Sign in'}
             </button>

@@ -38,7 +38,7 @@ export default function ChatApp() {
   return (
     <div className={`fixed bottom-20 right-6 z-50`}>
       {(
-        <div className={`flex max-w-[400px] h-[500px] rounded-xl shadow-2xl transition-all ${ isOpen ? "opacity-100 scale-100" : "scale-80 opacity-0"}`}>
+        <div className={`flex max-w-[400px] h-120 bg-rose-400/10 backdrop-blur-xl rounded-xl shadow-2xl border-white/20 border transition-all duration-500 ${ isOpen ? "opacity-100 scale-100 block pointer-events-auto" : "scale-80 opacity-0 blur-sm pointer-events-none -mr-90"}`}>
           {/* Sidebar */}
           <div className="w-1/3 m-3 rounded-xl bg-rose-500/50 flex flex-col text-white overflow-hidden">
             {friends.map((friend) => (
@@ -57,7 +57,7 @@ export default function ChatApp() {
           </div>
 
           {/* Chat window */}
-          <div className="max-w-full flex-1 bg-rose-900/80 backdrop-blur-2xl flex flex-col rounded-xl">
+          <div className="max-w-full flex-1 bg-rose-900/70 flex flex-col rounded-xl">
             {/* Header */}
             <div className="bg-rose-500 text-white text-center py-2 font-bold text-sm w-9/10 mt-3 m-auto rounded-lg">
               {selectedFriend.name}

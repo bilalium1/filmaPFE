@@ -26,7 +26,7 @@ app.use("/api/users", userRoutes);
 app.use("/api", tmdbRoutes);
 app.use("/api/favorites", favRoutes);
 app.use("/api/friends", frndRoutes);
-app.use("/api/theatres", thtrRoutes);
+app.use("/api/theaters", thtrRoutes);
 //app.use("/api/history", histRoutes);
 app.use("/api/reviews", revRoutes);
 app.use("/api/comments", commRoutes);

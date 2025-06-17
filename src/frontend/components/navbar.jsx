@@ -41,15 +41,16 @@ function NavBar({medias}){
             <p onClick={() => navigate('/')} className="sm:px-5 px-1 my-auto h-4/5 w-auto rounded-md text-stone-100 font-light tracking-wider text-md sm:text-3xl hover:rotate-x-10 transition-all cursor-pointer hover:font-bold hover:text-emerald-500"> ⚝ FIL.MA </p>
             <button onClick={() => navigate('/about')} className={`${buttoncss}`}>✦︎ About</button>
 
-            <DropMenu title={"Films"} elements={films} css={buttoncss} />
-            <DropMenu title={"Series"} elements={series} css={buttoncss} />
-            <DropMenu title={"Theatres"} elements={theatres} css={buttoncss} />
+            <button onClick={() => {navigate(`/films`)}} className={`${buttoncss}`}>📽 Films</button>
+            <button onClick={() => {navigate(`/series`)}} className={`${buttoncss}`}>📺 Series</button>
+            <button onClick={() => {navigate(`/theatres`)}} className={`${buttoncss}`}>Threatres</button>
 
-            <FaSearch onClick={() => setSopen(!s_open)} className='hover:backdrop-brightness-150 size-9 rounded-sm p-3 cursor-pointer my-auto'/>
+
+            <FaSearch onClick={() => setSopen(!s_open)} className='absolute size-10 right-0 top-13 bg-rose-950/80 size-9 rounded-sm p-3 cursor-pointer my-auto'/>
             { user && (<CiLogout onClick={() => {logout(); navigate('/')}} className='absolute right-2 top-2 hover:bg-red-400 size-8 rounded-sm p-2 bg-red-400/50 cursor-pointer my-auto'/>)}
 
             <button onClick={() => {!user ? navigate('/auth') : navigate(`/user/${user.id}`)}} className={`absolute ${ !user ? "right-0" : "right-10"} ${buttoncss}`}>❯❯ {!user ? "Se Connecter" : user.username}</button>
-            <SearchBar parent="navbar" css={ s_open ? "opacity-100 mt-15 blur-0 block absolute" : "opacity-0 mt-10 pointer-events-none hidden"}/>
+            <SearchBar parent="navbar" css={ s_open ? "opacity-100 mt-24 blur-0 block absolute" : "opacity-0 mt-10 pointer-events-none hidden"}/>
         </div>
     )
 }

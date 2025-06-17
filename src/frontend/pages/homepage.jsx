@@ -187,7 +187,6 @@ function Homepage() {
     { title: "Horreur", genre: 27 },
     { title: "Thriller", genre: 53 },
     { title: "Mystère", genre: 9648},
-    { title: "Marvel", genre: null, studio: "Marvel Studios" }
   ], []);
 
   if (!medias || medias.length ===0) {

@@ -25,6 +25,10 @@ export const getPopularMovies = async (req, res) => {
   try {
     const data = await makeTmdbRequest('/movie/popular', {
       page: req.query.page || 1,
+      include_adult: false,
+      without_genres: '10749',
+      without_genres: '18',
+      
     });
     res.json(data);
   } catch (error) {
@@ -45,7 +49,9 @@ export const getMovieDetails = async (req, res) => {
 export const getPopularShows = async (req, res) => {
   try {
     const data = await makeTmdbRequest('/tv/popular', {
-      page: req.query.page || 1
+      page: req.query.page || 1,
+      include_adult: false,
+      without_genres: '10749',
     });
     res.json(data);
   } catch (error) {
@@ -89,7 +95,8 @@ export const searchMulti = async (req, res) => {
   try {
     const data = await makeTmdbRequest('/search/multi', {
       query: req.query.query,
-      page: req.query.page || 1
+      page: req.query.page || 1,
+      include_adult: false,
     });
     res.json(data);
   } catch (error) {

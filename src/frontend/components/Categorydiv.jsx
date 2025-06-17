@@ -54,7 +54,7 @@ function Category({ title, genre ,studio, medias = [] , onScrollEnd}) {
   // Filter films based on your criteria
 
   return (
-    <div className="relative bg-linear-to-b from-stone-900/90 to-stone-900/20 w-19/20 mx-auto my-5 lg:h-120 h-80 rounded-lg border-2 border-white/50">
+    <div className="relative bg-linear-to-b from-rose-950/90 to-rose-900/20 w-19/20 backdrop-blur-sm mx-auto my-5 lg:h-120 h-80 rounded-lg border-2 border-white/50">
       <p className="text-left w-full pl-4 py-4 mb-2 font-doto mx-auto h-10 text-3xl font-normalc tracking-wider uppercase">╰ {title}</p>
       <div
         id={`films-${title}`}

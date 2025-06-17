@@ -13,6 +13,8 @@ import TheaterPage from './pages/theaterpage.jsx'
 import UserPage from './pages/userpage.jsx';
 import Chat from './components/Chat.jsx'
 import ForumPage from "./pages/forumpage.jsx";
+import PopularMovies from './pages/filmspage.jsx';
+import TVShows from './pages/seriespage.jsx';
 
 function App() {
     return (
@@ -27,7 +29,9 @@ function App() {
               <Route path="/auth" element={<Auth/>}/>
               <Route path="/theatres" element={<TheaterPage/>}/>
               <Route path="/user/:id" element={<UserPage/>}/>
-              <Route path="/theatre" element={<ForumPage/>}></Route>
+              <Route path="/theatre" element={<ForumPage/>}></Route> 
+              <Route path="/films" element={<PopularMovies/>}></Route>
+              <Route path="/series" element={<TVShows/>}></Route> 
             </Routes>
           </Router>
           <Footer /> 

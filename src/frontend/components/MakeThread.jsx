@@ -6,7 +6,7 @@ import { AuthContext } from "../context/AuthContext";
 export default function CreateThread({ onCreate }) {
   const [title, setTitle] = useState("");
   const [isPrivate, setIsPrivate] = useState(false);
-  const [film, setFilm] = useState([]);
+  const [film, setFilm] = useState(null);
   const [code, setCode] = useState("");
   const {user} = useContext(AuthContext);
 
@@ -17,6 +17,8 @@ export default function CreateThread({ onCreate }) {
     return alert("Thread title can't be empty!");
   }
 
+  console.log("media : ", film.media_type);
+
   // Build payload dynamically
   const payload = {
     title: title.trim(),
@@ -24,8 +26,9 @@ export default function CreateThread({ onCreate }) {
     host_id: user.id, // 🔐 Replace with actual user ID from auth context/store
   };
 
-  if (film?._id) {
-    payload.film_id = film._id;
+  if (film.id) {
+    payload.film_id = film.id;
+    payload.media_type = film.media_type;
   }
 
   if (isPrivate) {
@@ -49,7 +52,6 @@ export default function CreateThread({ onCreate }) {
   }
 };
 
-
   useEffect(() => {
     console.log(film);
   }, [film])
@@ -69,9 +71,13 @@ export default function CreateThread({ onCreate }) {
         onChange={(e) => setTitle(e.target.value)}
       />
 
-      <p onClick={() => setFilm([])} className={`p-2 rounded-sm font-bold hover:bg-rose-800 cursor-pointer transition-all ${film.length==0 ? "bg-rose-800" : "bg-rose-500"}`}>
-            {(film.length==0) ? "Sans film." : `${film?.title || ''} ${film?.name || ''}`}
-        </p>
+      <p
+        onClick={() => setFilm(null)}
+        className={`p-2 rounded-sm font-bold hover:bg-rose-800 cursor-pointer transition-all ${!film ? "bg-rose-800" : "bg-rose-500"}`}
+      >
+        {!film ? "Sans film." : `${film.title || film.name}`}
+      </p>
+
 
         <SearchBar css="" parent="theatre" setFilm={setFilm}/>
 

@@ -3,9 +3,9 @@ import Theater from "../models/theater.model.js";
 // Créer un nouveau théâtre
 export const createTheater = async (req, res) => {
     try {
-        const { film_id, host_id, title, is_private, code } = req.body;
+        const { film_id, host_id, title, is_private, code, media_type } = req.body;
 
-        const newTheater = new Theater({ film_id, host_id, title, is_private, code});
+        const newTheater = new Theater({ film_id, host_id, title, is_private, code, media_type});
         await newTheater.save();
 
         res.status(201).json(newTheater);

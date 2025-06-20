@@ -56,20 +56,31 @@ export default function SearchBar({css="", parent, setFilm}) {
   };
 
   const handleResultClick = (result) => {
-    if (parent === "navbar") {
-      const route = result.media_type === 'movie' 
-      ? `/films/${result.id}` 
+  if (parent === "navbar") {
+    const route = result.media_type === "movie"
+      ? `/films/${result.id}`
       : `/series/${result.id}/1/1`;
-      navigate(route);
-      clearSearch();
-    } else if (parent === "theatre") {
-      setFilm(result);
-      clearSearch();
+    navigate(route);
+    clearSearch();
+  } else if (parent === "theatre") {
+    // Force media_type to be present if missing
+    const mediaType =
+      result.title ? "movie" :
+      result.name ? "tv" : null;
+
+    if (!mediaType) {
+      alert("Impossible de détecter le type de média.");
+      return;
+    }
+
+    setFilm({ ...result, media_type: mediaType });
+    clearSearch();
     }
   };
 
+
   return (
-    <div className={`mx-auto w-full transition-all backdrop-blur-sm duration-500 mx-auto ${css}`} ref={searchRef}>
+    <div className={`mx-auto w-9/10 transition-all backdrop-blur-sm duration-500 mx-auto ${css}`} ref={searchRef}>
       <div className="relative flex items-center">
         <MagnifyingGlassIcon className="absolute left-3 h-5 w-5 text-stone-100 z-2" />
         <input
@@ -78,7 +89,7 @@ export default function SearchBar({css="", parent, setFilm}) {
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => setIsFocused(true)}
           placeholder="Chercher les Films ou Series que tu veux..."
-          className="w-full h-12 pl-10 pr-10 py-2 rounded-md focus:outline-none focus:ring-0 focus:border-transparent bg-rose-950/50"
+          className="w-full h-10 pl-10 pr-10 py-2 rounded-md focus:outline-none focus:ring-0 focus:border-transparent bg-rose-950/50"
         />
         {query && (
           <button

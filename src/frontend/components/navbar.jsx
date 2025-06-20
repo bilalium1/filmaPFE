@@ -50,7 +50,7 @@ function NavBar({medias}){
             { user && (<CiLogout onClick={() => {logout(); navigate('/')}} className='absolute right-2 top-2 hover:bg-red-400 size-8 rounded-sm p-2 bg-red-400/50 cursor-pointer my-auto'/>)}
 
             <button onClick={() => {!user ? navigate('/auth') : navigate(`/user/${user.id}`)}} className={`absolute ${ !user ? "right-0" : "right-10"} ${buttoncss}`}>❯❯ {!user ? "Se Connecter" : user.username}</button>
-            <SearchBar parent="navbar" css={ s_open ? "opacity-100 mt-24 blur-0 block absolute" : "opacity-0 mt-10 pointer-events-none hidden"}/>
+            <SearchBar parent="navbar" css={ s_open ? "opacity-100 mt-13 blur-0 block absolute" : "opacity-0 mt-10 pointer-events-none hidden"}/>
         </div>
     )
 }

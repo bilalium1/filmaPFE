@@ -27,6 +27,12 @@ const theaterService = {
     return response.data;
   },
 
+  // Get a single theater by ID
+  getTheaterById: async (id) => {
+    const response = await axios.get(`${API_BASE_URL}/theaters/${id}`);
+    return response.data;
+  },
+
   // Delete theater by ID
   deleteTheater: async (id) => {
     const response = await axios.delete(`${API_BASE_URL}/theaters/${id}`);

@@ -3,7 +3,7 @@ import Theater_chat from "../models/th_chat.model.js";
 // Créer un message pour une salle
 export const createTheaterMessage = async (req, res) => {
     try {
-        const { userid, theaterid, message } = req.body;
+        const { user_id, theater_id, message } = req.body;
 
         const newMessage = new Theater_chat({ user_id, theater_id, message });
         await newMessage.save();
@@ -17,7 +17,7 @@ export const createTheaterMessage = async (req, res) => {
 // Récupérer tous les messages
 export const getAllTheaterMessages = async (req, res) => {
     try {
-        const messages = await Theater_chat.find();
+        const messages = await Theater_chat.find().populate("user_id", "username");
         res.json(messages);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -27,7 +27,7 @@ export const getAllTheaterMessages = async (req, res) => {
 // Récupérer les messages d'une salle spécifique
 export const getMessagesByTheaterId = async (req, res) => {
     try {
-        const messages = await Theater_chat.find({ theaterid: req.params.theaterid });
+        const messages = await Theater_chat.find({ theater_id: req.params.theater_id }).populate("user_id", "username");
         res.json(messages);
     } catch (err) {
         res.status(500).json({ error: err.message });

@@ -29,7 +29,7 @@ function App() {
               <Route path="/auth" element={<Auth/>}/>
               <Route path="/theatres" element={<TheaterPage/>}/>
               <Route path="/user/:id" element={<UserPage/>}/>
-              <Route path="/theatre" element={<ForumPage/>}></Route> 
+              <Route path="/theatre/:id" element={<ForumPage/>}></Route> 
               <Route path="/films" element={<PopularMovies/>}></Route>
               <Route path="/series" element={<TVShows/>}></Route> 
             </Routes>

@@ -6,12 +6,15 @@ import { FaMasksTheater } from "react-icons/fa6";
 import CreateThread from "../components/MakeThread";
 import theaterService from "../api_services/theater.service";
 import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const TheaterPage = () => {
   const [theaters, setTheaters] = useState([]);
   const [posterMap, setPosterMap] = useState({}); // { [theaterId]: posterUrl }
   const { user } = useContext(AuthContext);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchTheaters();
@@ -72,7 +75,7 @@ const TheaterPage = () => {
         {/* Theater Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 px-6 pb-10">
           {theaters?.map((theater) => (
-            <div
+            <div onClick={() => {navigate(`/theatre/${theater._id}`)}}
               key={theater._id}
               className="relative bg-rose-950/80 border-b-2 lg:h-72 h-60 m-3 rounded-2xl cursor-pointer hover:brightness-110 transition-all hover:border-b-4 overflow-hidden"
             >

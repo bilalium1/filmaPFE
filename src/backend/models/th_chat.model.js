@@ -1,8 +1,8 @@
 import mongoose from "mongoose"
 
 const theater_chatSchema = mongoose.Schema({
-        user_id : {type : Number, required : true},
-        theater_id : { type : Number, required : true},
+        user_id : {type : mongoose.Schema.Types.ObjectId, required : true, ref : "User"},
+        theater_id : { type : mongoose.Schema.Types.ObjectId, required : true, ref : "Theater"},
         message : { type : String, required : true},
     }, 
     {timestamps : true}

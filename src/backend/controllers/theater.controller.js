@@ -55,3 +55,15 @@ export const deleteTheater = async (req, res) => {
         res.status(400).json({ error: err.message });
     }
 };
+
+export const getTheaterById = async (req, res) => {
+    try {
+        const theater = await Theater.findById(req.params.id).populate("host_id", "username");
+        if (!theater) {
+            return res.status(404).json({ error: "Théâtre non trouvé." });
+        }
+        res.json(theater);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};

@@ -7,6 +7,10 @@ import { IoChatboxEllipses } from "react-icons/io5";
 import { MdEdit } from "react-icons/md";
 import friendService from "../api_services/friend.service";
 import axios from "axios";
+import UserSearch from "../components/userSearch.jsx";
+
+import { IoPersonAddSharp } from "react-icons/io5";
+import { IoPersonRemoveSharp } from "react-icons/io5";
 
 import male from "../assets/male.jpg";
 import female from "../assets/female.jpg";
@@ -17,6 +21,7 @@ export default function UserPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [editMode, setEditMode] = useState(false);
+  const [isFriend, setIsFriend] = useState(false);
 
   const { user } = useContext(AuthContext);
 
@@ -29,10 +34,21 @@ export default function UserPage() {
   const handleAdd = async () => {
     try {
       await friendService.addFriend(user.id, id);
+      setIsFriend(true);
     } catch (err) {
       console.log("noo : ", err);
     }
   };
+
+  const handleRemove = async () => {
+  try {
+    await friendService.removeFriend(user.id, id);
+    setIsFriend(false);
+  } catch (err) {
+    console.log("Couldn't remove friend: ", err);
+  }
+  };
+
 
   const handleEditToggle = () => {
     setEditMode(!editMode);
@@ -53,7 +69,7 @@ export default function UserPage() {
         location: Pageuser.location,
         bio: Pageuser.bio,
       });
-      setUser(res.data); // sync updated data
+      setUser(res.data);
       setEditMode(false);
     } catch (err) {
       console.error("Update failed:", err);
@@ -66,11 +82,14 @@ export default function UserPage() {
       setError(null);
       try {
         const res = await fetch(`/api/users/${id}`);
-        if (!res.ok) {
-          throw new Error("User not found");
-        }
+        if (!res.ok) throw new Error("User not found");
         const data = await res.json();
         setUser(data);
+
+        if (user?.id !== id) {
+          const result = await friendService.checkIfFriends(user.id, id);
+          setIsFriend(result.areFriends);
+        }
       } catch (err) {
         setError(err.message);
       } finally {
@@ -79,7 +98,7 @@ export default function UserPage() {
     };
 
     fetchUser();
-  }, [id]);
+  }, [id, user.id]);
 
   if (loading) {
     return (
@@ -100,22 +119,28 @@ export default function UserPage() {
   return (
     <div className="w-9/10 mx-auto mt-30 p-6 bg-rose-950/50 rounded-2xl shadow-lg">
       {!isOwnProfile && (
-        <button
-          onClick={handleAdd}
-          className="absolute flex size-12 active:mt-2 bg-emerald-500 rounded-lg font-black text-2xl text-center p-3 cursor-pointer hover:bg-white hover:text-emerald-400 transition-all"
-        >
-          <FaUserFriends />
-        </button>
-      )}
-      {!isOwnProfile && (
-        <button className="absolute flex ml-15 size-12 active:mt-2 bg-rose-500 rounded-lg font-black text-2xl text-center p-3 cursor-pointer hover:bg-white hover:text-rose-400 transition-all">
-          <IoChatboxEllipses />
-        </button>
-      )}
+        <div className="flex gap-2 absolute">
+          <button
+          onClick={isFriend ? handleRemove : handleAdd}
+          className={`flex size-12 rounded-lg font-black text-2xl text-center p-3 cursor-pointer transition-all
+          ${isFriend
+            ? "bg-transparent border-2 border-emerald-500 text-white hover:bg-rose-500 hover:border-0 hover:text-black"
+            : "bg-emerald-500 text-white active:scale-[110%] hover:bg-white hover:text-emerald-400"}`}
+          >
+            {!isFriend ? <IoPersonAddSharp/> : <IoPersonRemoveSharp/>}
+          </button>
+
+          <button className="flex size-12 bg-rose-500 rounded-lg font-black text-2xl text-center p-3 cursor-pointer hover:bg-white hover:text-rose-400 transition-all">
+            <IoChatboxEllipses />
+          </button>
+        </div>
+        )}
+
+
       {isOwnProfile && (
         <button
           onClick={handleEditToggle}
-          className="absolute flex size-12 active:mt-2 bg-emerald-500 rounded-lg font-black text-2xl text-center p-3 cursor-pointer hover:bg-white hover:text-emerald-400 transition-all"
+          className="absolute flex size-12 bg-emerald-500 rounded-lg font-black text-2xl text-center p-3 cursor-pointer hover:bg-white hover:text-emerald-400 transition-all"
         >
           <MdEdit />
         </button>
@@ -212,6 +237,8 @@ export default function UserPage() {
           Sauveguarder
         </button>
       )}
+
+      {isOwnProfile && <UserSearch />}
 
       <NavBar />
     </div>

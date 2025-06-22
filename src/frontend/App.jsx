@@ -35,8 +35,7 @@ function App() {
             </Routes>
           </Router>
           <Footer /> 
-          <Chat/> 
-          <ChatBot />
+          <Chat/>
         </div>
       </AuthProvider>
     );

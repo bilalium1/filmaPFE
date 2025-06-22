@@ -2,6 +2,7 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import NavBar from '../components/navbar';
 
 export default function TVShows() {
   const [shows, setShows] = useState([]);
@@ -48,8 +49,8 @@ export default function TVShows() {
   }, [handleObserver]);
 
   return (
-    <div className="min-h-screen bg-gray-900 text-rose-200 p-4">
-      <h1 className="text-4xl font-bold mb-8 text-center text-rose-400">Popular TV Shows</h1>
+    <div className="min-h-screen text-rose-200 mt-20 p-4">
+      <h1 className="text-4xl font-bold mb-8 text-center text-rose-400">Séries populaires</h1>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
         {shows.map((show) => (
@@ -79,6 +80,7 @@ export default function TVShows() {
       {!hasMore && (
         <p className="text-center py-6 text-rose-500">That’s all folks 📺</p>
       )}
+      <NavBar/>
     </div>
   );
 }

@@ -1,4 +1,5 @@
-import Chat from "../models/Chat.nodel.js";
+import Chat from "../models/Chat.model.js";
+import mongoose from "mongoose";
 
 // Créer un nouveau message
 export const createMessage = async (req, res) => {
@@ -17,10 +18,13 @@ export const getMessages = async (req, res) => {
   try {
     const { user_id, friend_id } = req.params;
 
+    const userObjectId = new mongoose.Types.ObjectId(user_id);
+    const friendObjectId = new mongoose.Types.ObjectId(friend_id);
+
     const messages = await Chat.find({
       $or: [
-        { user_id: parseInt(user_id), friend_id: parseInt(friend_id) },
-        { user_id: parseInt(friend_id), friend_id: parseInt(user_id) }
+        { user_id: userObjectId, friend_id: friendObjectId },
+        { user_id: friendObjectId, friend_id: userObjectId }
       ]
     }).sort({ createdAt: 1 });
 

@@ -170,8 +170,12 @@ function Homepage() {
   }, []); 
 
   useEffect(() => {
-    user_Fav();
-  }, [user, medias, signal, totalPages, isLoading, loading, cPage ])
+    if (!user) {
+      console.log("no user");
+    } else {
+      user_Fav();
+    }
+  }, [user, medias, signal ])
 
   const categories = useMemo(() => [
     { title: "Tendance ▲", genre: 0 },
@@ -207,7 +211,7 @@ function Homepage() {
       {medias.length > 0 && <Tete medias={medias.slice(0,120)} />}
 
       {/* Category Sections - Only show for popular tab */}
-      {ufaves.length > 0 && (<CategoryDiv title={"Favorites ★"} medias={ufaves} genre={0}/>)}
+      {ufaves.length > 0 && !(!user) && (<CategoryDiv title={"Favorites ★"} medias={ufaves} genre={0}/>)}
 
       {categories.map(cat => (
         <CategoryDiv 

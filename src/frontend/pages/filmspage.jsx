@@ -50,7 +50,7 @@ export default function PopularMovies() {
   return (
     <div className="min-h-screen text-rose-200 mt-20 p-4">
         <NavBar/>
-      <h1 className="text-4xl font-bold mb-8 text-center text-rose-400">Popular Movies</h1>
+      <h1 className="text-4xl font-bold mb-8 text-center text-rose-400">Films populaires</h1>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 lg:grid-cols-5 gap-6">
         {movies.map((movie) => (

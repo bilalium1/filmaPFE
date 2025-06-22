@@ -1,3 +1,4 @@
+// same imports
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EnvelopeIcon, LockClosedIcon, UserIcon, ArrowPathIcon, XCircleIcon } from '@heroicons/react/24/outline';
@@ -33,11 +34,11 @@ export default function Auth() {
 
   const validate = () => {
     const newErrors = {};
-    if (!formData.email) newErrors.email = 'Email is required';
-    else if (!/^\S+@\S+\.\S+$/.test(formData.email)) newErrors.email = 'Email is invalid';
-    if (!formData.password) newErrors.password = 'Password is required';
-    else if (formData.password.length < 6) newErrors.password = 'Password must be at least 6 characters';
-    if (!isLogin && !formData.username) newErrors.username = 'Username is required';
+    if (!formData.email) newErrors.email = 'Email requis';
+    else if (!/^\S+@\S+\.\S+$/.test(formData.email)) newErrors.email = 'Email invalide';
+    if (!formData.password) newErrors.password = 'Mot de passe requis';
+    else if (formData.password.length < 6) newErrors.password = 'Le mot de passe doit contenir au moins 6 caractères';
+    if (!isLogin && !formData.username) newErrors.username = 'Nom d’utilisateur requis';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -58,13 +59,10 @@ export default function Auth() {
 
       const response = await axios.post(endpoint, payload);
       
-      // Store the token using AuthContext's login function
       login(response.data.token);
-      
-      // Redirect to home page after successful auth
       navigate('/');
     } catch (err) {
-      const errorMessage = err.response?.data?.message || 'Authentication failed';
+      const errorMessage = err.response?.data?.message || 'Échec de l’authentification';
       setAuthError(errorMessage);
       console.error('Auth error:', err);
     } finally {
@@ -72,7 +70,6 @@ export default function Auth() {
     }
   };
 
-  // ... rest of your component remains the same ...
   const toggleAuthMode = () => {
     setIsLogin(!isLogin);
     setErrors({});
@@ -83,7 +80,7 @@ export default function Auth() {
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-stone-100">
-          {isLogin ? 'Sign in to your account' : 'Create a new account'}
+          {isLogin ? 'Connexion à votre compte' : 'Créer un nouveau compte'}
         </h2>
       </div>
 
@@ -106,7 +103,7 @@ export default function Auth() {
             {!isLogin && (
               <div>
                 <label htmlFor="username" className="block text-sm font-medium text-stone-300">
-                  Username
+                  Nom d’utilisateur
                 </label>
                 <div className="mt-1 relative rounded-md shadow-sm">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -125,12 +122,11 @@ export default function Auth() {
                 <MoroccanCityDropdown value={formData.location} onChange={(value) =>setFormData((prev) => ({ ...prev, location: value }))}/>
                 <GenderToggle isMale={formData.sexe} setIsMale={(value) => setFormData((prev) => ({ ...prev, sexe: value }))} />
               </div>
-
             )}
 
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-stone-300">
-                Email address
+                Adresse email
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -150,7 +146,7 @@ export default function Auth() {
 
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-stone-300">
-                Password
+                Mot de passe
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -178,13 +174,13 @@ export default function Auth() {
                     className="h-4 w-4 text-rose-600 focus:ring-rose-500 border-stone-700 rounded bg-stone-900"
                   />
                   <label htmlFor="remember-me" className="ml-2 block text-sm text-stone-400">
-                    Remember me
+                    Se souvenir de moi
                   </label>
                 </div>
 
                 <div className="text-sm">
                   <a href="#" className="font-medium text-rose-500 hover:text-rose-400">
-                    Forgot your password?
+                    Mot de passe oublié ?
                   </a>
                 </div>
               </div>
@@ -199,9 +195,9 @@ export default function Auth() {
                 {isLoading ? (
                   <>
                     <ArrowPathIcon className="animate-spin -ml-1 mr-3 h-5 w-5 text-rose-500" />
-                    Processing...
+                    Traitement...
                   </>
-                ) : isLogin ? 'Sign in' : 'Register'}
+                ) : isLogin ? 'Se connecter' : "S'inscrire"}
               </button>
             </div>
           </form>
@@ -212,7 +208,7 @@ export default function Auth() {
               onClick={toggleAuthMode}
               className="font-medium text-rose-500 hover:text-rose-400 transition-colors duration-200"
             >
-              {isLogin ? 'Need an account? Register' : 'Already have an account? Sign in'}
+              {isLogin ? "Pas encore de compte ? S'inscrire" : 'Vous avez déjà un compte ? Se connecter'}
             </button>
           </div>
         </div>

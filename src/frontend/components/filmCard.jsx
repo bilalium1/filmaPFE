@@ -89,8 +89,12 @@ function FilmCard({film = []}){
     };
 
     useEffect(() => {
-      get_isFav();
-    }, [])
+      if (!user) {
+        console.log("no user");
+      } else {
+        get_isFav();
+      }
+    }, [user])
     
     return (
         <div className="flex-none relative justify-center bg-stone-800/100 lg:h-85 lg:w-60 w-30 h-50 rounded-lg overflow-hidden shadow-lg lg:hover:h-90 lg:hover:w-150 hover:w-120 hover:h-60 transition-all opacity-80 saturate-50 hover:opacity-100 hover:saturate-100 duration-300">
